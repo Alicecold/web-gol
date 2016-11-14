@@ -1,9 +1,6 @@
-﻿body{
-
-}
-.container {
+﻿.container {
     max-width:1170px;
-    margin:0 auto;
+    margin:0px 30px;
     background-color:magenta;
     height:auto;
 }
