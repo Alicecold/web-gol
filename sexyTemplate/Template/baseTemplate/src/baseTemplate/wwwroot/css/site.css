@@ -8,6 +8,7 @@
 }
 .wh-box{
     width: 150px;
+    border-bottom: 3px solid black;
 }
 .container {
     max-width:1170px;
@@ -82,7 +83,10 @@ button:hover{
     width: 30px;
     /*margin-right: 20px;*/
 }
-
+button{
+    background-color: white;
+    border: 2px solid black;
+}
 col-md-2{
     padding-left: 0px;
 }
