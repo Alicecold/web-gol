@@ -252,3 +252,5 @@ paket-files/
 *.sln.iml
 *.suo
 sexyTemplate/Template/baseTemplate/.vs/baseTemplate/v14/.suo
+sexyTemplate/Template/baseTemplate/src/baseTemplate/obj/Debug/netcoreapp1.0/dotnet-compile.rsp
+sexyTemplate/Template/baseTemplate/src/baseTemplate/obj/Debug/netcoreapp1.0/.IncrementalCache
