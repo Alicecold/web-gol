@@ -36,4 +36,8 @@ h1 {
 
 .button{
     width: 30px;
+    display: inline-block;
+}
+.button img{
+    width: 30px;
 }
