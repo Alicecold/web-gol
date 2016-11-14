@@ -7,7 +7,7 @@
     max-width: 1170px;
 }
 .wh-box{
-    width: 150px;
+    width: 100%;
     border-bottom: 3px solid black;
 }
 .container {
@@ -40,9 +40,10 @@ h1 {
     text-align:center;
 }
 h4{
-    max-width: 180px;
+    max-width: 100%;
     padding-top: 10px;
     margin-top: 25px;
+    margin-right: 0px;
     border-top: 3px solid black;
     font-weight: bold;
 }
@@ -53,9 +54,12 @@ h4{
 }
 
 button{
-    width: 150px;
+    width: 100%;
     margin-top: 15px;
     box-shadow: 3px 3px 5px #000000;
+    
+    background-color: white;
+    border: 2px solid black;
 }
 button:hover{
     box-shadow: 3px 3px 5px #360985;
@@ -63,7 +67,8 @@ button:hover{
 }
 
 .myCol{
-    width: 150px;
+    
+    padding-left: 0px;
 }
 
 .pleaseCenter{
@@ -85,11 +90,5 @@ button:hover{
     width: 30px;
     /*margin-right: 20px;*/
 }
-button{
-    background-color: white;
-    border: 2px solid black;
-}
-col-md-2{
-    padding-left: 0px;
-}
+
 
