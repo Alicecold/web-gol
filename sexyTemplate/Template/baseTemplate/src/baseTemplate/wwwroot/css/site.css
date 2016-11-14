@@ -7,7 +7,7 @@
     max-width: 1170px;
 }
 .wh-box{
-    width: 100%;
+    width: 150px;
 }
 .container {
     max-width:1170px;
@@ -48,8 +48,9 @@ h4{
 #formSpeed {
     margin-left:45px;
 }
+
 button{
-    width: 180px;
+    width: 150px;
     margin-top: 15px;
     box-shadow: 3px 3px 5px #000000;
 }
