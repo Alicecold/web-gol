@@ -23,6 +23,12 @@
     background-color: white;
 }
 
+label{
+    display:block;
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
+
 h1 {
     text-align:center;
 
