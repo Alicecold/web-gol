@@ -4,13 +4,14 @@
 }
 
 <div>
-    
-    <div class="container">
+    <div class="container-fluid" id="head-text">
         <h1>YAPP-WED Game of Life</h1>
+    </div>
+    <div class="container">
+        
         <div class="row">
-            <div class="col-md-10">
-                
-
+            <div class="board col-md-10">
+                <div id="gridBoard"></div>
             </div>
             <div class="col-md-2">
                 <div class="row">
@@ -33,18 +34,17 @@
                             <div class="row"><input type="radio" name="gender" value="other"> Fast</div>
                         </form>
                     </div>
-                    <div class="row">
-                        <button type="button">Randomize</button>
-                    </div>
-                
+                <button type="button">Randomize</button>
+                <div class="button">
+                    <img src="~/images/playButton.svg" />
+                </div>
+                <div class="button">
+                    <img src="~/images/pauseButton.svg" />
+                </div>
                 <div class="row">
                     <p>Database</p>
-                    <div class="row">
                         <button type="button">Save current game</button>
-                    </div>
-                    <div class="row">
                         <button type="button">Load current game</button>
-                    </div>
                 </div>
             </div>
 

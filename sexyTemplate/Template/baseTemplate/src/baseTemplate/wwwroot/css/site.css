@@ -1,9 +1,27 @@
-﻿.container {
+﻿#head-text{
+    background-color: white;
+    max-width: 1170px;
+}
+
+.container {
     max-width:1170px;
     margin:0px 30px;
     background-color:magenta;
-    height:auto;
+    height: 600px;
 }
+
+.board{
+    min-width: 100px;
+    min-height: 100px;
+}
+
+#gridBoard{
+    max-width: 950px;
+    height: 300px;
+    margin-top: 5px;
+    background-color: white;
+}
+
 h1 {
     text-align:center;
 
@@ -13,4 +31,8 @@ h1 {
 }
 #formSpeed {
     margin-left:15px;
+}
+
+.button{
+    width: 30px;
 }
