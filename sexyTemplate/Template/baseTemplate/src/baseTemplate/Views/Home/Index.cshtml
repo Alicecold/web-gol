@@ -13,16 +13,37 @@
             </div>
             <div class="col-md-2">
                 <div class="row">
-                    <p>Width:</p>
-                </div>
-                <div class="row">
-                    <p>Height:</p>
+                    <form action="action_page.php">
+                        Width<br>
+                        <input type="text" name="Width" value="0">
+                        <br>
+                        Height<br>
+                        <input type="text" name="Height" value="0">
+                        <br>
+                    </form>
                 </div>
                 <div class="row">
                     <p>Speed:</p>
                 </div>
+                    <div class="row">
+                        <form>
+                            <div class="row"><input type="radio" name="gender" value="male" checked> Slow </div>
+                            <div class="row"><input type="radio" name="gender" value="female"> Normal</div>
+                            <div class="row"><input type="radio" name="gender" value="other"> Fast</div>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <button type="button">Randomize</button>
+                    </div>
+                
                 <div class="row">
                     <p>Database</p>
+                    <div class="row">
+                        <button type="button">Save current game</button>
+                    </div>
+                    <div class="row">
+                        <button type="button">Load current game</button>
+                    </div>
                 </div>
             </div>
 
