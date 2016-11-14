@@ -60,21 +60,23 @@ button:hover{
 
 
 .pleaseCenter{
-    margin: 0px auto;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
 
 .button{
     width: 30px;
     display: inline-block;
-    padding: 30px 0px;
+    /*padding: 30px 0px;*/
     margin-left: 2.5px;
     margin-right: 2.5px;
+    margin-top: 30px;
 
 }
 .button img{
     width: 30px;
-    margin-right: 20px;
+    /*margin-right: 20px;*/
 }
 
 col-md-2{
