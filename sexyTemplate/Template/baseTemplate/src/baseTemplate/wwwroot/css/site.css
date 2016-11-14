@@ -1,3 +1,16 @@
-﻿h1 {
+﻿.container {
+    max-width:1170px;
+    margin:0px 30px;
+    background-color:magenta;
+    height:auto;
+}
+h1 {
     text-align:center;
+
+}
+#parSpeed {
+    margin-top:15px;
+}
+#formSpeed {
+    margin-left:15px;
 }
