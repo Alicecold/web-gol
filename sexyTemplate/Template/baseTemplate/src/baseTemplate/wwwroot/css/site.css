@@ -59,6 +59,9 @@ button:hover{
     cursor: url(../images/cell.svg), auto;
 }
 
+.myCol{
+    width: 150px;
+}
 
 .pleaseCenter{
     margin-left: auto;
