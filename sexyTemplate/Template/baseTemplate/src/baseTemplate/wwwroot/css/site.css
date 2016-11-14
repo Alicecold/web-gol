@@ -39,11 +39,17 @@ h4{
     font-weight: bold;
 }
 
-#parSpeed {
-    margin-top:15px;
-}
 #formSpeed {
-    margin-left:15px;
+    margin-left:45px;
+}
+button{
+    width: 180px;
+    margin-top: 15px;
+    box-shadow: 3px 3px 5px #000000;
+}
+button:hover{
+    box-shadow: 3px 3px 5px #360985;
+    cursor: url(../images/cell.svg), auto;
 }
 
 .button{
@@ -54,4 +60,8 @@ h4{
 .button img{
     width: 30px;
     margin-right: 20px;
+}
+
+col-md-2{
+    padding-left: 0px;
 }
