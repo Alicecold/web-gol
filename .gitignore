@@ -250,3 +250,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+*.suo
+sexyTemplate/Template/baseTemplate/.vs/baseTemplate/v14/.suo
