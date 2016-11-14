@@ -8,7 +8,6 @@
         <h1>YAPP-WED Game of Life</h1>
     </div>
     <div class="container-fluid">
-        
         <div class="row board">
             <div class="col-md-10">
                 <div id="gridBoard"></div>
@@ -17,9 +16,9 @@
                 <div class="row">
                     <form action="action_page.php">
                         <label for="Width">Width</label>
-                        <input type="text" name="Width" value="0">
+                        <input type="text" name="Width" value="0" class="wh-box">
                         <label for="Height">Height</label>
-                        <input type="text" name="Height" value="0">
+                        <input type="text" name="Height" value="0" class="wh-box">
                     </form>
                 </div>
                 <div class="row">
@@ -34,11 +33,9 @@
                     </div>
                 <button type="button">Randomize</button>
                 <div class="row">
-                    <div class="button">
-                        <img src="~/images/playButton.svg" />
-                    </div>
-                    <div class="button">
-                        <img src="~/images/pauseButton.svg" />
+                    <div class="pleaseCenter">
+                        <img class="button" src="~/images/playButton.svg" />
+                        <img class="button" src="~/images/pauseButton.svg" />
                     </div>
                 </div>
                 <div class="row">
