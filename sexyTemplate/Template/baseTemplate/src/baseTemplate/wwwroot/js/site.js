@@ -42,7 +42,7 @@
             $(this).css("background-color", "#FFFFFF");
         });
     };
-
+    createGrid(20,20);
 };
 
 
