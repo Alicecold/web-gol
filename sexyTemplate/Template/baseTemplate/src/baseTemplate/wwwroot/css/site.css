@@ -1,7 +1,6 @@
 ﻿body{
     margin: 0px;
     padding: 0px;
-    cursor: url("../images/cell.png"), default;
 }
 .block{
     font-family: balsamiq;
@@ -32,6 +31,9 @@
     border: 2px solid black;
 }
 
+#submitButton{
+    display: none;
+}
 label{
     font-family: balsamiq;
     display:block;
@@ -74,7 +76,6 @@ button{
 
 button:hover{
     box-shadow: 3px 3px 5px #360985;
-    cursor: url(../images/cell.png), default;
 }
 
 .myCol{
