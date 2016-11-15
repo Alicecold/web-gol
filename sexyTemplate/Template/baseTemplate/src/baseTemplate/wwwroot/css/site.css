@@ -46,7 +46,9 @@ label{
     margin-bottom: 0px;
     margin-top: 2px;
 }
-
+.mycol{
+    display: block;
+}
 p {
     font-family: balsamiq;
 }
@@ -85,7 +87,7 @@ button:hover{
 
 }
 
-.pleaseCenter{
+.playPause{
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -114,6 +116,38 @@ button:hover{
     font-family: balsamiq;
     font-style:italic;
     src: url(../fonts/BalsamiqSansItalic.ttf);
+}
+
+@media (max-width: 500px){
+    h1{
+        font-size: 15px;
+        text-align: left;
+    }
+    .myCol{
+        /*display: none;*/
+        border: 2px solid black;
+        z-index: 2;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        background: white;
+        padding-bottom: 10px;
+        width: 50vw;
+    }
+
+    .playPause{
+        display: none;
+    }
+    h4{
+        font-size: 15px;
+    }
+
+    button{
+        font-size: 10px;
+    }
+    .board{
+        padding: 0px;
+    }
 }
 
 
