@@ -2,10 +2,6 @@
     var width = document.getElementById("width").value;
     var height = document.getElementById("height").value;
     var column = "", appendRow = "", inc = 1, selectedCells = [], toRemoveClass = [], toAddClass = [], maxValue;
-
-    var livingCells = {
-        alive : false,
-    }
     
     
 
@@ -19,20 +15,21 @@
         createGrid(height, width);
     });
 
-    $("table").on(function () {
+    //if (height > 0 & width > 0) {
 
-        $("td").click(function (data) {
-            selectedCells.push(parseInt(this.id));
-            $(this).addClass("valid");
-        });
+    //}
+    //$("table").on(function () {
 
-    });
+    //    $("td").click(function (data) {
+    //        selectedCells.push(parseInt(this.id));
+    //        $(this).addClass("valid");
+    //    });
 
-
+    //});
     var createGrid = function (height, width) {
         for (var rows = 1; rows <= height; rows++) {
             for (var col = 1; col <= width; col++) {
-                column += "<td  id =" + inc + col + ">  </td>";
+                column += '<td  onclick="" id =' + inc + col + '>  </td>';
             }
             appendRow += "<tr>" + column + "</tr>";
             column = "";
@@ -40,12 +37,11 @@
         }
         $("#grid > tbody").append(appendRow);
         appendRow = "";
+
+        $("#grid>tbody>tr> td").click(function () {
+            $(this).css("background-color", "#FFFFFF");
+        });
     };
-
-
-
-
-
 
 };
 
@@ -60,7 +56,10 @@ var toggleSettings = function () {
     });
 }
 
+
+
 $(document).ready(function () {
     var game = new Game();
+    var change = changeState();
     var menu = toggleSettings();
 });
