@@ -7,14 +7,20 @@
         height = document.getElementById("height").value;
         alert(height);
     });
-
-
-
 };
 
 
+var toggleSettings = function () {
+    $('#settings').click(function () {
+        $('.myCol').show();
+    });
 
+    $('#close').click(function () {
+        $('.myCol').hide();
+    });
+}
 
 $(document).ready(function () {
     var game = new Game();
+    var menu = toggleSettings();
 });
