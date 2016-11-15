@@ -1,8 +1,6 @@
 ﻿var Game = function () {
-    var width = document.getElementById('#grid-size');
-    alert(width);
-
-
+    var width = document.getElementById("width").value;
+    var height = document.getElementById("height").value;
 };
 
 
