@@ -9,7 +9,7 @@
     });
 
     var createGrid = function (height, width) {
-
+       
         for (var rows = 1; rows <= height; rows++) {
             for (var col = 1; col <= width; col++) {
                 column += "<td  id =" + inc + col + ">  </td>";
@@ -18,10 +18,13 @@
             column = "";
             inc++;
         }
-        $(".table").append(appendRow);
+        $("#grid > tbody").append(appendRow);
+        appendRow = "";
     };
     
     $("#playBtn").click(function () {
+        $('#grid > tbody').remove();
+        $('#grid').append('<tbody> </tbody>');
         createGrid(height, width);
     })
 

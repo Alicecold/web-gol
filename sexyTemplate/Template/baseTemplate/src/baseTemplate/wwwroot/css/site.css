@@ -4,14 +4,18 @@
     overflow-x: hidden;
 
 }
-
+table, th, td {
+    border: 2px solid black;
+}
 table{
     background-color: black;
+    width: 100%;
+    height: 600px;
 }
 td{
-    width: 5px;
-    height: 5px;
     background-color: aqua;
+    width: 2px;
+    height: 2px;
 }
 
 /*Radiobuttons*/
