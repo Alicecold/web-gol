@@ -46,6 +46,10 @@ input[type=radio] {
     text-align:right;
     line-height: 8px;
 }
+
+    .myCol{
+        display: block;
+    }
 .block{
     font-family: balsamiq;
     display: block;
