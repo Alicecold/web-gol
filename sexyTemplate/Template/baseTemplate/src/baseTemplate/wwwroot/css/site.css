@@ -150,6 +150,10 @@ button:hover{
 
 }
 
+#settings, #close{
+    display:none;
+}
+
 @font-face{
     font-family: balsamiq;
     src: url(../fonts/BalsamiqSansRegular.ttf);
@@ -172,7 +176,7 @@ button:hover{
         text-align: left;
     }
     .myCol{
-        /*display: none;*/
+        display: none;
         border: 2px solid black;
         z-index: 2;
         position: absolute;
@@ -195,6 +199,13 @@ button:hover{
     }
     .board{
         padding: 0px;
+    }
+
+    #settings, #close{
+        display:inline-block;
+        right: 0px;
+
+        width: 20px;
     }
 }
 

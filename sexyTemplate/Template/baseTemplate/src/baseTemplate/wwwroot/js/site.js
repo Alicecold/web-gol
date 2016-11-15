@@ -8,7 +8,6 @@
         height = document.getElementById("height").value;
     });
 
-
     var createGrid = function (height, width) {
 
         for (var rows = 1; rows <= height; rows++) {
@@ -21,11 +20,21 @@
         }
         $(".table").append(appendRow);
     };
+
 };
 
 
+var toggleSettings = function () {
+    $('#settings').click(function () {
+        $('.myCol').show();
+    });
 
+    $('#close').click(function () {
+        $('.myCol').hide();
+    });
+}
 
 $(document).ready(function () {
     var game = new Game();
+    var menu = toggleSettings();
 });
