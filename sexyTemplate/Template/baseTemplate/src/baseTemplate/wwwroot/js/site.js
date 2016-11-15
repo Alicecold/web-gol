@@ -20,6 +20,11 @@
         }
         $(".table").append(appendRow);
     };
+    
+    $("#playBtn").click(function () {
+        createGrid(height, width);
+    })
+
 
 };
 
