@@ -254,3 +254,5 @@ paket-files/
 sexyTemplate/Template/baseTemplate/.vs/baseTemplate/v14/.suo
 sexyTemplate/Template/baseTemplate/src/baseTemplate/obj/Debug/netcoreapp1.0/dotnet-compile.rsp
 sexyTemplate/Template/baseTemplate/src/baseTemplate/obj/Debug/netcoreapp1.0/.IncrementalCache
+sexyTemplate/Template/baseTemplate/src/baseTemplate/obj/Debug/netcoreapp1.0/dotnet-compile.rsp
+sexyTemplate/Template/baseTemplate/src/baseTemplate/bin/Debug/netcoreapp1.0/baseTemplate.runtimeconfig.dev.json
