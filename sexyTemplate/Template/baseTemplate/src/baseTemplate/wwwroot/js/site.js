@@ -1,13 +1,44 @@
 ﻿var Game = function () {
     var width = document.getElementById("width").value;
     var height = document.getElementById("height").value;
+    var column = "", appendRow = "", inc = 1, selectedCells = [], toRemoveClass = [], toAddClass = [], maxValue;
 
     $('#grid-size').focusout(function () {
         width = document.getElementById("width").value;
         height = document.getElementById("height").value;
-        alert(height);
+
+        $('#gridBoard').empty();
+        createGrid(height, width);
     });
+
+    var createGrid = function (height, width) {
+        for (var rows = 1; rows <= height; rows++) {
+            for (var col = 1; col <= width; col++) {
+                column += '<img class="dead cell" src="/images/cell.svg"  id =' + inc + col + '>';
+            }
+            appendRow += "<div>" + column + "</div>";
+            column = "";
+            inc++;
+        }
+        $("#gridBoard").append(appendRow);
+        appendRow = "";
+
+        $(".dead").click(function () {
+            $(this).css("filter", "hue-rotate(90deg) brightness(1.25)");
+            $(this).attr('class', 'alive cell');
+
+        });
+
+        $(".alive").click(function () {
+            $(this).css("filter", "brightness(0.25)");
+            $(this).attr('class', 'dead cell');
+
+        });
+    };
+    createGrid(20,20);
 };
+
+
 
 
 var toggleSettings = function () {
@@ -20,7 +51,10 @@ var toggleSettings = function () {
     });
 }
 
+
+
 $(document).ready(function () {
     var game = new Game();
+    var change = changeState();
     var menu = toggleSettings();
 });

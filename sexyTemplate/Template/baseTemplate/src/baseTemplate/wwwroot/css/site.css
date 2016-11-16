@@ -5,6 +5,12 @@
 
 }
 
+.cell{
+    display: inline-block;
+    width: 30px;
+    margin: 0 auto;
+}
+
 /*Radiobuttons*/
 input[type=radio] {
   display: none;
@@ -109,11 +115,6 @@ h4{
     border-top: 3px solid black;
     font-weight: bold;
 }
-
-/*#formSpeed {
-    margin-left:45px;
-
-}*/
 
 button{
     font-family: balsamiq;
