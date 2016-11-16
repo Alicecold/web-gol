@@ -2,9 +2,6 @@
     var width = document.getElementById("width").value;
     var height = document.getElementById("height").value;
     var column = "", appendRow = "", inc = 1, selectedCells = [], toRemoveClass = [], toAddClass = [], maxValue;
-    
-    
-
 
     $('#grid-size').focusout(function () {
         width = document.getElementById("width").value;
@@ -15,17 +12,6 @@
         createGrid(height, width);
     });
 
-    //if (height > 0 & width > 0) {
-
-    //}
-    //$("table").on(function () {
-
-    //    $("td").click(function (data) {
-    //        selectedCells.push(parseInt(this.id));
-    //        $(this).addClass("valid");
-    //    });
-
-    //});
     var createGrid = function (height, width) {
         for (var rows = 1; rows <= height; rows++) {
             for (var col = 1; col <= width; col++) {
