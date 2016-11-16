@@ -26,6 +26,9 @@
 
         $("#grid>tbody>tr> td").click(function () {
             $(this).html('<img id="cells" src="/images/cell.svg">');
+
+
+
         });
     };
     createGrid(20,20);
