@@ -157,18 +157,18 @@ button:hover{
 
 @font-face{
     font-family: balsamiq;
-    src: url(../fonts/BalsamiqSansRegular.ttf);
+    /*src: url(../fonts/BalsamiqSansRegular.ttf);*/
 }
 @font-face{
     font-family: balsamiq;
     font-weight: bold;
-    src: url(../fonts/BalsamiqSansBold.ttf );
+    /*src: url(../fonts/BalsamiqSansBold.ttf );*/
 }
 
 @font-face{
     font-family: balsamiq;
     font-style:italic;
-    src: url(../fonts/BalsamiqSansItalic.ttf);
+    /*src: url(../fonts/BalsamiqSansItalic.ttf);*/
 }
 
 @media (max-width: 500px){

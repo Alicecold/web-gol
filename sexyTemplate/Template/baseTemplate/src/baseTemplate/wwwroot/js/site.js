@@ -56,12 +56,11 @@ var toggleSettings = function () {
     $(window).resize(function () {
         if ($(this).innerWidth > "500px") {
             $('.myCol').show();
-        } else if ($(this).innerWidth <= "500px") {
+        }
+        if ($(this).innerWidth < "500px") {
             $('.myCol').hide();
         }
     });
-
-
 }
 
 
