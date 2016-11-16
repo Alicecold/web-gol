@@ -219,9 +219,8 @@ button:hover{
     #settings, #close, .playButton, .pauseButton{
         display:inline-block;
     }
-    #close{
-        padding-bottom: 10px;
-        text-align:right;
+    #label1{
+        clear: both;
     }
 
     .fa {
