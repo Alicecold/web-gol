@@ -35,13 +35,16 @@
 
         });
     };
-    createGrid(5,5);
+    createGrid(5, 5);
+
+    
 };
 
 
 
 
 var toggleSettings = function () {
+
     $('#settings').click(function () {
         $('.myCol').show();
     });
@@ -49,11 +52,20 @@ var toggleSettings = function () {
     $('#close').click(function () {
         $('.myCol').hide();
     });
+
+    //var width = $(window).width();
+    //if (width > 500) {
+    //    $('myCol').show();
+    //}
+
+
 }
+
 
 
 
 $(document).ready(function () {
     var game = new Game();
     var menu = toggleSettings();
+
 });
