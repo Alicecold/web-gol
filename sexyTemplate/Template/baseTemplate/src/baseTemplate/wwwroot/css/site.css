@@ -11,6 +11,7 @@
     margin: 0 auto;
 }
 
+
 /*Radiobuttons*/
 input[type=radio] {
   display: none;
@@ -150,6 +151,10 @@ button:hover{
     display:none;
 }
 
+.playButton, .pauseButton{
+    display: none;
+}
+
 @font-face{
     font-family: balsamiq;
     src: url(../fonts/BalsamiqSansRegular.ttf);
@@ -206,16 +211,19 @@ button:hover{
     }
     .pauseButton{
         width: 30px;
-        margin-right: 60px;
+        margin-right: 40px;
     }
-    .settingsButton{
-        
+    .closeButton{
+        float: right;
     }
-
-
-    #settings, #close{
+    #settings, #close, .playButton, .pauseButton{
         display:inline-block;
     }
+    #close{
+        padding-bottom: 10px;
+        text-align:right;
+    }
+
     .fa {
         margin-top: 40px;
         transform: scale(3,3);
