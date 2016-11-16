@@ -7,32 +7,38 @@
         width = document.getElementById("width").value;
         height = document.getElementById("height").value;
 
-        $('#grid > tbody').remove();
-        $('#grid').append('<tbody> </tbody>');
+        $('#gridBoard').empty();
         createGrid(height, width);
     });
 
     var createGrid = function (height, width) {
         for (var rows = 1; rows <= height; rows++) {
             for (var col = 1; col <= width; col++) {
-                column += '<td  onclick="" id =' + inc + col + '>  </td>';
+                column += '<img class="dead cell" src="/images/cell.svg"  id =' + inc + col + '>';
             }
-            appendRow += "<tr>" + column + "</tr>";
+            appendRow += "<div>" + column + "</div>";
             column = "";
             inc++;
         }
-        $("#grid > tbody").append(appendRow);
+        $("#gridBoard").append(appendRow);
         appendRow = "";
 
-        $("#grid>tbody>tr> td").click(function () {
-            $(this).html('<img id="cells" src="/images/cell.svg">');
+        $(".dead").click(function () {
+            $(this).css("filter", "hue-rotate(90deg) brightness(1.25)");
+            $(this).attr('class', 'alive cell');
 
+        });
 
+        $(".alive").click(function () {
+            $(this).css("filter", "brightness(0.25)");
+            $(this).attr('class', 'dead cell');
 
         });
     };
     createGrid(20,20);
 };
+
+
 
 
 var toggleSettings = function () {
