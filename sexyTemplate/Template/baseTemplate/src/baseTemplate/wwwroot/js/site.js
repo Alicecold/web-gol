@@ -53,10 +53,13 @@ var toggleSettings = function () {
         $('.myCol').hide();
     });
 
-    //var width = $(window).width();
-    //if (width > 500) {
-    //    $('myCol').show();
-    //}
+    $(window).resize(function () {
+        if ($(this).innerWidth > "500px") {
+            $('.myCol').show();
+        } else if ($(this).innerWidth <= "500px") {
+            $('.myCol').hide();
+        }
+    });
 
 
 }
