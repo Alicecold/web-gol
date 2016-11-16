@@ -14,9 +14,9 @@
     var createGrid = function (height, width) {
         for (var rows = 1; rows <= height; rows++) {
             for (var col = 1; col <= width; col++) {
-                column += '<img class="dead cell" src="/images/cell.svg"  id =' + inc + col + ' onclick="">';
+                column += '<img class="dead cell" src="/images/cell.svg"  id = ' + inc + col + ' onclick="">';
             }
-            appendRow += "<div>" + column + "</div>";
+            appendRow += "<div id='row" + inc + "' >" + column + "</div>";
             column = "";
             inc++;
         }
@@ -29,11 +29,7 @@
 
     };
     createGrid(20, 20);
-
-
-    $("#playBtn").click(function(){
-        playGame();
-    });
+    randomize();
 };
 
 var playGame = function () {
@@ -42,7 +38,12 @@ var playGame = function () {
 }
 
 var randomize = function(){
-    //randomize board
+    $("#randomizeBtn").click(function () {
+        $(".cell").each(function (index) {
+            if(Math.random() > 0.75)
+                $(this).toggleClass("dead alive");
+        });
+    });
 }
 var toggleSettings = function () {
     $('#settings').click(function () {
