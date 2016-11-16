@@ -14,7 +14,7 @@
     var createGrid = function (height, width) {
         for (var rows = 1; rows <= height; rows++) {
             for (var col = 1; col <= width; col++) {
-                column += '<img class="dead cell" src="/images/cell.svg"  id =' + inc + col + '>';
+                column += '<img class="dead cell" src="/images/cell.svg"  id =' + inc + col + ' onclick="">';
             }
             appendRow += "<div>" + column + "</div>";
             column = "";
@@ -23,24 +23,27 @@
         $("#gridBoard").append(appendRow);
         appendRow = "";
 
-        $(".dead").click(function () {
-            $(this).css("filter", "hue-rotate(90deg) brightness(1.25)");
-            $(this).attr('class', 'alive cell');
-
+        $(".cell").click(function () {
+            $(this).toggleClass('dead alive');
         });
 
-        $(".alive").click(function () {
-            $(this).css("filter", "brightness(0.25)");
-            $(this).attr('class', 'dead cell');
-
-        });
     };
-    createGrid(20,20);
+    createGrid(20, 20);
+
+
+    $("#playBtn").click(function(){
+        playGame();
+    });
 };
 
+var playGame = function () {
+    //check for changes
+    //change
+}
 
-
-
+var randomize = function(){
+    //randomize board
+}
 var toggleSettings = function () {
     $('#settings').click(function () {
         $('.myCol').show();
@@ -55,6 +58,6 @@ var toggleSettings = function () {
 
 $(document).ready(function () {
     var game = new Game();
-    var change = changeState();
     var menu = toggleSettings();
+    
 });
