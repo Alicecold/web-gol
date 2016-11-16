@@ -35,7 +35,7 @@
 
         });
     };
-    createGrid(20,20);
+    createGrid(5,5);
 };
 
 
@@ -55,6 +55,5 @@ var toggleSettings = function () {
 
 $(document).ready(function () {
     var game = new Game();
-    var change = changeState();
     var menu = toggleSettings();
 });
