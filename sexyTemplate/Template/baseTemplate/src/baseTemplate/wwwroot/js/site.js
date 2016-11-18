@@ -47,7 +47,7 @@
     };
     createGrid(width, height); //create standard grid
     randomize(cells, height); //this randomizes cells when button "randomize" is clicked
-    playGame(cells, width, height); //this has never worked
+    playGame(cells, width, height); //this does not work as expected, but something temporary happens!
     pauseGame(); //this does nothing
 };
 
@@ -67,23 +67,16 @@ var pauseGame = function () {
         alert("paus");
     });
 }
-var playGame = function (cells, cols, rows) {
-
-    $("#playBtn").click(function () {
-        alert("play");
-        for (r = 0; r < rows; r++) {
-            for (c = 0; c < cols; c++) {
-                if (cells[+r + (+c * +rows)].isAlive()) {
-                    cells[+r + (+c * +rows)].changeState(cells[+r + (+c * +rows)].cellID);
-
-                } else {
-                    cells[+r + (+c * +rows)].changeState();
-                }
-            }
-        }
-    });
-    //check for changes
+var playGame = function (cells, width, height) {
+    //TODO: check for changes
     //change
+    $("#playBtn").click(function () {
+        $(".cell").each(function () {
+                var row = $(this).closest("div").attr("data-id");
+                var col = $(this).attr("data-id");
+                cells[+row + (+col * +height)].changeState(this);
+        });
+    });
 }
 
 var randomize = function(cells, height){
