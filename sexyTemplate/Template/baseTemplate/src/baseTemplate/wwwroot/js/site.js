@@ -13,7 +13,9 @@
     });
 
     var createGrid = function (height, width) {
+        //Create array
         cells.length = height * width;
+        //add elements to append row
         for (var rows = 0; rows < height; rows++) {
             for (var col = 0; col < width; col++) {
                 column += '<img class="dead cell" src="/images/cell.svg" data-id = ' + col + ' onclick="">';
@@ -22,35 +24,42 @@
             column = "";
             inc++;
         }
+        //add elements to html-doc, within #gridboard
         $("#gridBoard").append(appendRow);
+
+        //add corresponing elements to cell-array
         for (var rows = 0; rows < height; rows++) {
             for (var col = 0; col < width; col++) {
-                cells[+rows + (+col * height)] = new cell(+rows, +col, $("data-id" + rows + " > data-id" + col), false);
+                cells[+rows + (+col * height)] = new cell(+rows, +col, false);
+                // +rows => rows as a interger. vice versa with +col
+                // the calculation within the brackets are a simple 2d to 1d array conversion
             }
         }
-        appendRow = "";
+        appendRow = ""; //empty appendRow
 
+
+        //Make clickable
         $(".cell").click(function () {
             var row = $(this).closest("div").attr("data-id");
             var col = $(this).attr("data-id");
-            var index = +row + +col;
             cells[ +row + (+col  * height)].changeState(this);
         });
     };
-    createGrid(width, height);
-    randomize(height);
-    playGame(cells, width, height);
-    pauseGame();
+    createGrid(width, height); //create standard grid
+    randomize(height); //this does not currently work
+    playGame(cells, width, height); //this has never worked
+    pauseGame(); //this does nothing
 };
 
-function cell(divID, colID, cellID, isAlive) {
+function cell(divID, colID, isAlive) {
     this.row = divID;
     this.colID = colID;
-    this.cellID = cellID;
     this.isAlive = isAlive;
+
+
     this.changeState = function (thisClass) {
-        $(thisClass).toggleClass('dead alive');
-        this.isAlive = $(thisClass).hasClass('alive');
+        $(thisClass).toggleClass('dead alive'); // toogle class that was sent in
+        this.isAlive = $(thisClass).hasClass('alive'); //set isAlive of current index to true if class of element is alive.
     }
 }
 var pauseGame = function () {
@@ -62,10 +71,10 @@ var playGame = function (cells, cols, rows) {
 
     $("#playBtn").click(function () {
         alert("play");
-        for (r = 1; r <= rows; r++) {
-            for (c = 1; c <= cols; c++) {
+        for (r = 0; r < rows; r++) {
+            for (c = 0; c < cols; c++) {
                 if (cells[+r + (+c * +rows)].isAlive()) {
-                    cells[+r + (+c * +rows)].changeState();
+                    cells[+r + (+c * +rows)].changeState(cells[+r + (+c * +rows)].cellID);
 
                 } else {
                     cells[+r + (+c * +rows)].changeState();
@@ -100,9 +109,9 @@ var toggleSettings = function () {
 
     $(window).resize(function () {
         // This will execute whenever the window is resized
-        if ($(window).width() >= 400)// New width
+        if ($(window).width() >= 400)// if more than
             $('.myCol').show();
-        if ($(window).width() < 400)// New width
+        if ($(window).width() < 400)// if less than
             $('.myCol').hide();
     });
 }
