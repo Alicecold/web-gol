@@ -8,7 +8,17 @@
 .cell{
     display: inline-block;
     width: 30px;
-    margin: 0 auto;
+    /*margin: 2px 2px;*/
+}
+
+.dead{
+    border: 2px solid green;
+    background: green;
+}
+
+.alive{
+    border: 2px solid pink;
+    background: pink;
 }
 
 
@@ -130,6 +140,10 @@ button{
 button:hover{
     box-shadow: 3px 3px 0px #360985;
 
+}
+
+#playBtn:hover, #pauseBtn:hover{
+    cursor: pointer;
 }
 
 .playPause{
