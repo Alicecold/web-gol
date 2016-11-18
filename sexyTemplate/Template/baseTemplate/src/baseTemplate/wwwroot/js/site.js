@@ -44,7 +44,6 @@
 
 
 var toggleSettings = function () {
-
     $('#settings').click(function () {
         $('.myCol').show();
     });
@@ -54,12 +53,11 @@ var toggleSettings = function () {
     });
 
     $(window).resize(function () {
-        if ($(this).innerWidth > "500px") {
+        // This will execute whenever the window is resized
+        if ($(window).width() >= 400)// New width
             $('.myCol').show();
-        }
-        if ($(this).innerWidth < "500px") {
+        if ($(window).width() < 400)// New width
             $('.myCol').hide();
-        }
     });
 }
 
