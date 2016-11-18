@@ -17,18 +17,24 @@
         for (var rows = 1; rows <= height; rows++) {
             for (var col = 1; col <= width; col++) {
                 column += '<img class="dead cell" src="/images/cell.svg" data-id = ' + col + ' onclick="">';
-                cells[rows + (col * height)] = new cell(rows, col, false);
             }
-            appendRow += "<div data-id='" + inc + "' >" + column + "</div>";
+            appendRow += "<div data-id='" + rows + "' >" + column + "</div>";
             column = "";
             inc++;
         }
         $("#gridBoard").append(appendRow);
+        for (var rows = 1; rows <= height; rows++) {
+            for (var col = 1; col <= width; col++) {
+                cells[rows + (col * height)] = new cell(rows, col, $("data-id" + rows + " > data-id" + col), false);
+            }
+        }
         appendRow = "";
 
         $(".cell").click(function () {
-            $(this).toggleClass('dead alive');
-            //cells[$(this).closest("div").attr("data-id") + ($(this).attr("data-id") * width)].changeState(this);
+            var row = $(this).closest("div").attr("data-id");
+            var col = $(this).attr("data-id");
+            alert("clicked ") + row + " " + col;
+            cells[ row + (col  * width)].changeState(this);
         });
     };
     createGrid(width, height);
@@ -37,12 +43,15 @@
     pauseGame();
 };
 
-function cell(divID, colID, isAlive) {
+function cell(divID, colID, cellID, isAlive) {
     this.row = divID;
     this.colID = colID;
+    this.cellID = cellID;
     this.isAlive = isAlive;
-    this.changeState = function (thisClass) {
-        this.isAlive = !this.isAlive;
+    this.changeState = function (cellID) {
+        $(cellID).toggleClass('dead alive');
+        this.isAlive = $(cellID).hasClass('alive');
+        alert("changed class of cell to: " + this.isAlive);
     }
 }
 var pauseGame = function () {
@@ -57,10 +66,10 @@ var playGame = function (cells, cols, rows) {
         for (r = 1; r <= rows; r++) {
             for (c = 1; c <= cols; c++) {
                 if (cells[r + (c * rows)].isAlive()) {
-                    cells[r + (c * rows)].changeState(this);
+                    cells[r + (c * rows)].changeState();
 
                 } else {
-                    cells[r + (c * rows)].changeState(this);
+                    cells[r + (c * rows)].changeState();
                 }
             }
         }
