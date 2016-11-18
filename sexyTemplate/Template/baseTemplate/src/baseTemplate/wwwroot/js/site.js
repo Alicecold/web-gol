@@ -14,8 +14,8 @@
 
     var createGrid = function (height, width) {
         cells.length = height * width;
-        for (var rows = 1; rows <= height; rows++) {
-            for (var col = 1; col <= width; col++) {
+        for (var rows = 0; rows < height; rows++) {
+            for (var col = 0; col < width; col++) {
                 column += '<img class="dead cell" src="/images/cell.svg" data-id = ' + col + ' onclick="">';
             }
             appendRow += "<div data-id='" + rows + "' >" + column + "</div>";
@@ -23,9 +23,9 @@
             inc++;
         }
         $("#gridBoard").append(appendRow);
-        for (var rows = 1; rows <= height; rows++) {
-            for (var col = 1; col <= width; col++) {
-                cells[rows + (col * height)] = new cell(rows, col, $("data-id" + rows + " > data-id" + col), false);
+        for (var rows = 0; rows < height; rows++) {
+            for (var col = 0; col < width; col++) {
+                cells[+rows + (+col * height)] = new cell(+rows, +col, $("data-id" + rows + " > data-id" + col), false);
             }
         }
         appendRow = "";
@@ -33,12 +33,12 @@
         $(".cell").click(function () {
             var row = $(this).closest("div").attr("data-id");
             var col = $(this).attr("data-id");
-            alert("clicked ") + row + " " + col;
-            cells[ row + (col  * width)].changeState(this);
+            var index = +row + +col;
+            cells[ +row + (+col  * height)].changeState(this);
         });
     };
     createGrid(width, height);
-    randomize();
+    randomize(height);
     playGame(cells, width, height);
     pauseGame();
 };
@@ -48,10 +48,9 @@ function cell(divID, colID, cellID, isAlive) {
     this.colID = colID;
     this.cellID = cellID;
     this.isAlive = isAlive;
-    this.changeState = function (cellID) {
-        $(cellID).toggleClass('dead alive');
-        this.isAlive = $(cellID).hasClass('alive');
-        alert("changed class of cell to: " + this.isAlive);
+    this.changeState = function (thisClass) {
+        $(thisClass).toggleClass('dead alive');
+        this.isAlive = $(thisClass).hasClass('alive');
     }
 }
 var pauseGame = function () {
@@ -65,11 +64,11 @@ var playGame = function (cells, cols, rows) {
         alert("play");
         for (r = 1; r <= rows; r++) {
             for (c = 1; c <= cols; c++) {
-                if (cells[r + (c * rows)].isAlive()) {
-                    cells[r + (c * rows)].changeState();
+                if (cells[+r + (+c * +rows)].isAlive()) {
+                    cells[+r + (+c * +rows)].changeState();
 
                 } else {
-                    cells[r + (c * rows)].changeState();
+                    cells[+r + (+c * +rows)].changeState();
                 }
             }
         }
@@ -78,11 +77,15 @@ var playGame = function (cells, cols, rows) {
     //change
 }
 
-var randomize = function(){
+var randomize = function(height){
     $("#randomizeBtn").click(function () {
         $(".cell").each(function () {
-            if(Math.random() > 0.75)
-                $(this).toggleClass("dead alive");
+            if (Math.random() > 0.75) {
+                var row = $(this).closest("div").attr("data-id");
+                var col = $(this).attr("data-id");
+                cells[+row + (+col * +height)].changeState(this);
+                //$(this).toggleClass("dead alive");
+            }
         });
     });
 }
