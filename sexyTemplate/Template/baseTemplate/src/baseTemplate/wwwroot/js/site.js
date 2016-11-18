@@ -109,9 +109,9 @@ var toggleSettings = function () {
 
     $(window).resize(function () {
         // This will execute whenever the window is resized
-        if ($(window).width() >= 400)// if more than
+        if ($(window).width() >= 500)// if more than
             $('.myCol').show();
-        if ($(window).width() < 400)// if less than
+        if ($(window).width() < 500)// if less than
             $('.myCol').hide();
     });
 }
