@@ -85,12 +85,20 @@ var toggleSettings = function () {
     $('#close').click(function () {
         $('.myCol').hide();
     });
+
+    $(window).resize(function () {
+        // This will execute whenever the window is resized
+        if ($(window).width() >= 400)// New width
+            $('.myCol').show();
+        if ($(window).width() < 400)// New width
+            $('.myCol').hide();
+    });
 }
+
 
 
 
 $(document).ready(function () {
     var game = new Game();
     var menu = toggleSettings();
-    
 });

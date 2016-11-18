@@ -21,6 +21,7 @@
     background: pink;
 }
 
+
 /*Radiobuttons*/
 input[type=radio] {
   display: none;
@@ -62,6 +63,10 @@ input[type=radio] {
     text-align:right;
     line-height: 8px;
 }
+
+    .myCol{
+        display: block;
+    }
 .block{
     font-family: balsamiq;
     display: block;
@@ -160,25 +165,29 @@ button:hover{
     display:none;
 }
 
+.playButton, .pauseButton{
+    display: none;
+}
+
 @font-face{
     font-family: balsamiq;
-    src: url(../fonts/BalsamiqSansRegular.ttf);
+    /*src: url(../fonts/BalsamiqSansRegular.ttf);*/
 }
 @font-face{
     font-family: balsamiq;
     font-weight: bold;
-    src: url(../fonts/BalsamiqSansBold.ttf );
+    /*src: url(../fonts/BalsamiqSansBold.ttf );*/
 }
 
 @font-face{
     font-family: balsamiq;
     font-style:italic;
-    src: url(../fonts/BalsamiqSansItalic.ttf);
+    /*src: url(../fonts/BalsamiqSansItalic.ttf);*/
 }
 
 @media (max-width: 500px){
     h1{
-        font-size: 15px;
+        font-size: 16px;
         text-align: left;
     }
     .myCol{
@@ -206,13 +215,33 @@ button:hover{
     .board{
         padding: 0px;
     }
-
-    #settings, #close{
-        display:inline-block;
-        right: 0px;
-
-        width: 20px;
+    .button{
+        margin-left: 0px;
+        margin-right: 0px;
     }
+    .playButton{
+        width: 30px;
+        margin-right: 15px;
+    }
+    .pauseButton{
+        width: 30px;
+        margin-right: 40px;
+    }
+    .closeButton{
+        float: right;
+    }
+    #settings, #close, .playButton, .pauseButton{
+        display:inline-block;
+    }
+    #label1{
+        clear: both;
+    }
+
+    .fa {
+        margin-top: 40px;
+        transform: scale(3,3);
+    } 
+
 }
 
 
