@@ -46,7 +46,7 @@
         });
     };
     createGrid(width, height); //create standard grid
-    randomize(height); //this does not currently work
+    randomize(cells, height); //this randomizes cells when button "randomize" is clicked
     playGame(cells, width, height); //this has never worked
     pauseGame(); //this does nothing
 };
@@ -86,14 +86,13 @@ var playGame = function (cells, cols, rows) {
     //change
 }
 
-var randomize = function(height){
+var randomize = function(cells, height){
     $("#randomizeBtn").click(function () {
         $(".cell").each(function () {
             if (Math.random() > 0.75) {
                 var row = $(this).closest("div").attr("data-id");
                 var col = $(this).attr("data-id");
                 cells[+row + (+col * +height)].changeState(this);
-                //$(this).toggleClass("dead alive");
             }
         });
     });
