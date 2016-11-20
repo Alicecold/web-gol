@@ -63,6 +63,7 @@ function cell(divID, colID, isAlive) {
         $(thisClass).toggleClass('dead alive'); // toogle class that was sent in
         this.isAlive = $(thisClass).hasClass('alive'); //set isAlive of current index to true if class of element is alive.
     }
+
 }
 //var pauseGame = function () {
 //    $("#pauseBtn").click(function () {
@@ -70,14 +71,98 @@ function cell(divID, colID, isAlive) {
 //    });
 //}
 var playGame = function (cells, width, height, time) {
-    //TODO: check for changes
-    //change
+
+    
     $("#playBtn").click(function () {
         setInterval(function () {
+            
+            var toChange = jQuery.extend(true, {}, cells);
+
+            //check for changes
+            $(".cell").each(function () {
+                var numberOfNeighbours = 0;
+                var row = $(this).closest("div").attr("data-id");
+                var col = $(this).attr("data-id");
+                
+                //Up
+                var checkRow = +row - 1;
+                var checkCol = +col;
+                if (checkRow < 0)
+                    checkRow = height-1;
+                if (cells[+checkRow + (+checkCol * +height)].isAlive)
+                    numberOfNeighbours++;
+
+                //Upper left
+                checkCol = +col - 1;
+                if (checkCol < 0)
+                    checkCol = width -1;
+                if (cells[+checkRow + (+checkCol * +height)].isAlive)
+                    numberOfNeighbours++;
+
+                //Upper right
+                checkCol = +col + 1;
+                if (checkCol > width-1)
+                    checkCol = 0;
+                if (cells[+checkRow + (+checkCol * +height)].isAlive)
+                    numberOfNeighbours++;
+
+                //Left
+                checkRow = +row;
+                checkCol = +col - 1;
+                if (checkCol < 0)
+                    checkCol = width -1;
+                if (cells[+checkRow + (+checkCol * +height)].isAlive)
+                    numberOfNeighbours++;
+
+                //Right
+                checkCol = +col + 1;
+                if (checkCol > width -1)
+                    checkCol = 0;
+                if (cells[+checkRow + (+checkCol * +height)].isAlive)
+                    numberOfNeighbours++;
+
+                //Down
+                checkRow = +row + 1;
+                if (checkRow > height -1)
+                    checkRow = 0;
+                if (cells[+checkRow + (+checkCol * +height)].isAlive)
+                    numberOfNeighbours++;
+
+                //Down left
+                checkCol = +col - 1;
+                if (checkCol < 0)
+                    checkCol = width -1;
+                if (cells[+checkRow + (+checkCol * +height)].isAlive)
+                    numberOfNeighbours++;
+
+                //Down right
+                checkCol = +col + 1;
+                if (checkCol > width -1)
+                    checkCol = 0;
+                if (cells[+checkRow + (+checkCol * +height)].isAlive)
+                    numberOfNeighbours++;
+
+                
+                if (cells[+row + (+col * +height)].isAlive && numberOfNeighbours != 3 && numberOfNeighbours != 2) {
+                    toChange[+row + (+col * +height)].isAlive = false;
+                }
+
+                if (!cells[+row + (+col * +height)].isAlive && numberOfNeighbours == 3) {
+                    toChange[+row + (+col * +height)].isAlive = true;
+                }
+
+            });
+
+            //TODO: apply changes
             $(".cell").each(function () {
                 var row = $(this).closest("div").attr("data-id");
                 var col = $(this).attr("data-id");
-                cells[+row + (+col * +height)].changeState(this);
+                
+                console.log(toChange[+row + (+col * +height)].isAlive + " " + cells[+row + (+col * +height)].isAlive);
+                if (toChange[+row + (+col * +height)].isAlive != cells[+row + (+col * +height)].isAlive) {
+                    console.log("entered");
+                    cells[+row + (+col * +height)].changeState(this);
+                }
             });
         }, 1000);
     });
