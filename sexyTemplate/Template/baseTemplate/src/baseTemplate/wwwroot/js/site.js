@@ -35,7 +35,7 @@
                 // the calculation within the brackets are a simple 2d to 1d array conversion
             }
         }
-        appendRow = ""; //empty appendRow
+        appendRow = "";
 
 
         //Make clickable
@@ -57,6 +57,11 @@ changeState = function (thisClass) {
     $(thisClass).toggleClass('dead alive'); // toogle class that was sent in
     return $(thisClass).hasClass('alive'); //set isAlive of current index to true if class of element is alive.
 }
+
+changeRenderState = function (thisClass, thisCell) {
+    if ($(thisClass).hasClass('alive') != thisCell) // if rendered cell is not alive, but logical cell is, or vice versa
+        $(thisClass).toggleClass('dead alive'); // toogle class of rendered cell
+}
 //var pauseGame = function () {
 //    $("#pauseBtn").click(function () {
 //        alert("paus");
@@ -68,7 +73,7 @@ var playGame = function (cells, width, height, time) {
     $("#playBtn").click(function () {
         setInterval(function () {
             
-            var toChange = jQuery.extend(true, [], cells);
+            var toChange = $.extend(true, [], cells);
 
             //check for changes
             for (row = 0; row < height; row++) {
@@ -102,6 +107,7 @@ var playGame = function (cells, width, height, time) {
                     checkCol = +col - 1;
                     if (checkCol < 0)
                         checkCol = width - 1;
+
                     if (cells[+checkRow + (+checkCol * +height)])
                         numberOfNeighbours++;
 
@@ -109,13 +115,16 @@ var playGame = function (cells, width, height, time) {
                     checkCol = +col + 1;
                     if (checkCol > width - 1)
                         checkCol = 0;
+
                     if (cells[+checkRow + (+checkCol * +height)])
                         numberOfNeighbours++;
 
                     //Down
+                    checkCol = +col;
                     checkRow = +row + 1;
                     if (checkRow > height - 1)
                         checkRow = 0;
+
                     if (cells[+checkRow + (+checkCol * +height)])
                         numberOfNeighbours++;
 
@@ -123,6 +132,7 @@ var playGame = function (cells, width, height, time) {
                     checkCol = +col - 1;
                     if (checkCol < 0)
                         checkCol = width - 1;
+
                     if (cells[+checkRow + (+checkCol * +height)])
                         numberOfNeighbours++;
 
@@ -130,6 +140,7 @@ var playGame = function (cells, width, height, time) {
                     checkCol = +col + 1;
                     if (checkCol > width - 1)
                         checkCol = 0;
+
                     if (cells[+checkRow + (+checkCol * +height)])
                         numberOfNeighbours++;
 
@@ -146,13 +157,12 @@ var playGame = function (cells, width, height, time) {
             }
 
             //apply changes
+            cells = $.extend(true, [], toChange); //This should be a deep copy but acts ver much like a shallow one
+            
             $(".cell").each(function () {
                 var row = $(this).closest("div").attr("data-id");
                 var col = $(this).attr("data-id");
-                
-                if (toChange[+row + (+col * +height)] != cells[+row + (+col * +height)]) {
-                    cells[+row + (+col * height)] = changeState(this);
-                }
+                changeRenderState(this, cells[+row + (+col * height)]);
             });
         }, 1000);
     });
