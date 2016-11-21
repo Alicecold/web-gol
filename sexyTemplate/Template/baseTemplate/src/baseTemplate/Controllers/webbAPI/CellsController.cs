@@ -22,7 +22,7 @@ namespace baseTemplate.Controllers.webbAPI
             using (connection)
             {
                 Life repo = new Life();
-                List<Cell> dbcells = repo.Cells("first").ToList();
+                //List<Cell> dbcells = repo.Cells("first").ToList();
             }
 
 
