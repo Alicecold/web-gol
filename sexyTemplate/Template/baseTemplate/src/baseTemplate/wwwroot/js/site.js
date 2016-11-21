@@ -1,4 +1,5 @@
-﻿var Game = function () {
+﻿var speed = 1000;
+var Game = function () {
     var width = document.getElementById("width").value;
     var height = document.getElementById("height").value;
     var column = "", appendRow = "", inc = 1;
@@ -38,7 +39,7 @@
         appendRow = "";
 
 
-        //Make clickable
+        //change by click
         $(".cell").click(function () {
             var row = $(this).closest("div").attr("data-id");
             var col = $(this).attr("data-id");
@@ -50,7 +51,7 @@
 
     var time = 1000;
     playGame(cells, width, height, time); //this does not work as expected, but something temporary happens!
-    //pauseGame(); //this does nothing
+    pauseGame(); //this does nothing
 };
 
 changeState = function (thisClass) {
@@ -62,17 +63,15 @@ changeRenderState = function (thisClass, thisCell) {
     if ($(thisClass).hasClass('alive') != thisCell) // if rendered cell is not alive, but logical cell is, or vice versa
         $(thisClass).toggleClass('dead alive'); // toogle class of rendered cell
 }
-//var pauseGame = function () {
-//    $("#pauseBtn").click(function () {
-//        alert("paus");
-//    });
-//}
-var playGame = function (cells, width, height, time) {
+var pauseGame = function () {
+    $("#pauseBtn").click(function () {
+        speed = 10000000;
+    });
+}
 
-    
+var playGame = function (cells, width, height, time) {
     $("#playBtn").click(function () {
         setInterval(function () {
-            
             var toChange = $.extend(true, [], cells);
 
             //check for changes
@@ -164,7 +163,9 @@ var playGame = function (cells, width, height, time) {
                 var col = $(this).attr("data-id");
                 changeRenderState(this, cells[+row + (+col * height)]);
             });
-        }, 1000);
+
+            console.log(speed);
+        }, speed);
     });
 }
 
