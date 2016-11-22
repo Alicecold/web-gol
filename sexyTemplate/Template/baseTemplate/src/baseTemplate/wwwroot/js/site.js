@@ -4,7 +4,7 @@ var Game = function () {
     var height = document.getElementById("height").value;
     var column = "", appendRow = "", inc = 1;
     var cells = [];
-    var speed = $('input[name="speed"]:checked').val();
+    
 
     $('#grid-size').focusout(function () {
         width = document.getElementById("width").value;
@@ -51,7 +51,7 @@ var Game = function () {
     randomize(cells, height); //this randomizes cells when button "randomize" is clicked
 
     var time = 1000;
-    playGame(cells, width, height, speed); //this does not work as expected, but something temporary happens!
+    playGame(cells, width, height); //this does not work as expected, but something temporary happens!
     pauseGame(); //this does nothing
 };
 
@@ -70,11 +70,13 @@ var pauseGame = function () {
     });
 }
 
-var playGame = function (cells, width, height, time) {
+var playGame = function (cells, width, height) {
     $("#playBtn").click(function () {
-
+        var speed = $('input[name="speed"]:checked').val();
+        alert(speed);
+        var time = speed;
             function loop() {
-                    
+                  
             var toChange = $.extend(true, [], cells);
 
             //check for changes
@@ -166,8 +168,6 @@ var playGame = function (cells, width, height, time) {
                 var col = $(this).attr("data-id");
                 changeRenderState(this, cells[+row + (+col * height)]);
             });
-
-            console.log(speed);
             setTimeout(loop, time);
         
             }
