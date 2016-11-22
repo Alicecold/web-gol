@@ -50,7 +50,7 @@ var Game = function () {
     randomize(cells, height); //this randomizes cells when button "randomize" is clicked
 
     var time = 1000;
-    playGame(cells, width, height, time); //this does not work as expected, but something temporary happens!
+    playGame(cells, width, height, speed); //this does not work as expected, but something temporary happens!
     pauseGame(); //this does nothing
 };
 
@@ -65,13 +65,15 @@ changeRenderState = function (thisClass, thisCell) {
 }
 var pauseGame = function () {
     $("#pauseBtn").click(function () {
-        speed = 10000000;
+        speed = 0;
     });
 }
 
 var playGame = function (cells, width, height, time) {
     $("#playBtn").click(function () {
-        setInterval(function () {
+
+            function loop() {
+                    
             var toChange = $.extend(true, [], cells);
 
             //check for changes
@@ -165,7 +167,11 @@ var playGame = function (cells, width, height, time) {
             });
 
             console.log(speed);
-        }, speed);
+            setTimeout(loop, time);
+        
+            }
+            loop();
+        
     });
 }
 

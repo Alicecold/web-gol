@@ -99,6 +99,7 @@
 --reference:C:\Users\alice\.nuget\packages\Microsoft.Win32.Primitives\4.0.1\ref\netstandard1.3\Microsoft.Win32.Primitives.dll
 --reference:C:\Users\alice\.nuget\packages\Microsoft.Win32.Registry\4.0.0\ref\netstandard1.3\Microsoft.Win32.Registry.dll
 --reference:C:\Users\alice\.nuget\packages\Newtonsoft.Json\9.0.1\lib\netstandard1.0\Newtonsoft.Json.dll
+--reference:C:\Users\alice\.nuget\packages\Npgsql\3.1.9\lib\netstandard1.3\Npgsql.dll
 --reference:C:\Users\alice\.nuget\packages\NuGet.Common\3.5.0-beta2-1484\lib\netstandard1.3\NuGet.Common.dll
 --reference:C:\Users\alice\.nuget\packages\NuGet.Configuration\3.5.0-beta2-1484\lib\netstandard1.3\NuGet.Configuration.dll
 --reference:C:\Users\alice\.nuget\packages\NuGet.DependencyResolver.Core\3.5.0-beta2-1484\lib\netstandard1.3\NuGet.DependencyResolver.Core.dll
@@ -151,6 +152,7 @@
 --reference:C:\Users\alice\.nuget\packages\System.Linq.Queryable\4.0.1\ref\netstandard1.0\System.Linq.Queryable.dll
 --reference:C:\Users\alice\.nuget\packages\System.Net.Http\4.1.0\ref\netstandard1.3\System.Net.Http.dll
 --reference:C:\Users\alice\.nuget\packages\System.Net.NameResolution\4.0.0\ref\netstandard1.3\System.Net.NameResolution.dll
+--reference:C:\Users\alice\.nuget\packages\System.Net.NetworkInformation\4.1.0\ref\netstandard1.3\System.Net.NetworkInformation.dll
 --reference:C:\Users\alice\.nuget\packages\System.Net.Primitives\4.0.11\ref\netstandard1.3\System.Net.Primitives.dll
 --reference:C:\Users\alice\.nuget\packages\System.Net.Requests\4.0.11\ref\netstandard1.3\System.Net.Requests.dll
 --reference:C:\Users\alice\.nuget\packages\System.Net.Security\4.0.0\ref\netstandard1.3\System.Net.Security.dll
@@ -204,3 +206,6 @@
 C:\Users\alice\Documents\GitHub\web-gol\sexyTemplate\Template\baseTemplate\src\baseTemplate\Program.cs
 C:\Users\alice\Documents\GitHub\web-gol\sexyTemplate\Template\baseTemplate\src\baseTemplate\Startup.cs
 C:\Users\alice\Documents\GitHub\web-gol\sexyTemplate\Template\baseTemplate\src\baseTemplate\Controllers\HomeController.cs
+C:\Users\alice\Documents\GitHub\web-gol\sexyTemplate\Template\baseTemplate\src\baseTemplate\Controllers\webbAPI\CellsController.cs
+C:\Users\alice\Documents\GitHub\web-gol\sexyTemplate\Template\baseTemplate\src\baseTemplate\Repositories\Cell.cs
+C:\Users\alice\Documents\GitHub\web-gol\sexyTemplate\Template\baseTemplate\src\baseTemplate\Repositories\life.cs
