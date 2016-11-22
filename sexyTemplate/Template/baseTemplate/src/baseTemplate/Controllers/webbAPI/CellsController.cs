@@ -15,34 +15,38 @@ namespace baseTemplate.Controllers.webbAPI
         // GET: /<controller>/
         public bool[,] Default()
         {
-            //width,height
+            
             String ConnectionString = "User ID-postgres;Password=dataMiner;Host=localhost;Port=5432;Database=life;Pooling=true";
             NpgsqlConnection connection = new NpgsqlConnection(ConnectionString);
             connection.Open();
+            List<Cell> dbcells;
+            Board board;
             using (connection)
             {
-                Life repo = new Life();
-                List<Cell> dbcells = repo.Cells("first").ToList();
+                Life repo = new Life(connection);
+                dbcells = repo.Cells("first").ToList();
+                board = repo.Board("first");
             }
-
-
-
 
             bool[,] cells = new bool[100, 60];
-            Random rand = new Random();
-            for (int x = 0; x < 100; x++)
+            foreach(Cell cell in dbcells)
             {
-                for (int y = 0; y < 60; y++)
-                {
-                    cells[x, y] = Convert.ToBoolean(rand.Next(0, 2));
-                }
+                cells[cell.xPos, cell.yPos] = cell.isAlive;
             }
+
+
+            ////width,height
+            //bool[,] cells = new bool[100, 60];
+            //Random rand = new Random();
+            //for (int x = 0; x < 100; x++)
+            //{
+            //    for (int y = 0; y < 60; y++)
+            //    {
+            //        cells[x, y] = Convert.ToBoolean(rand.Next(0, 2));
+            //    }
+            //}
             return cells;
         }
-    }
-
-    internal class Life
-    {
     }
 
 }
