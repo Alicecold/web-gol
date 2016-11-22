@@ -85,11 +85,7 @@ var Game = function () {
     //    }
     //}
 
-
-
-    var time = 1000;
-    playGame(cells, width, height); //this does not work as expected, but something temporary happens!
-    pauseGame(); //this does nothing
+    playGame(cells, width, height);
 };
 
 changeState = function (thisClass) {
@@ -101,16 +97,11 @@ changeRenderState = function (thisClass, thisCell) {
     if ($(thisClass).hasClass('alive') != thisCell) // if rendered cell is not alive, but logical cell is, or vice versa
         $(thisClass).toggleClass('dead alive'); // toogle class of rendered cell
 }
-var pauseGame = function () {
-    $("#pauseBtn").click(function () {
-        speed = 0;
-    });
-}
 
 var playGame = function (cells, width, height) {
     $("#playBtn").click(function () {
+        var isPlaying = true;
         var speed = $('input[name="speed"]:checked').val();
-        alert(speed);
         var time = speed;
             function loop() {
                   
@@ -205,7 +196,13 @@ var playGame = function (cells, width, height) {
                 var col = $(this).attr("data-id");
                 changeRenderState(this, cells[+row + (+col * height)]);
             });
-            setTimeout(loop, time);
+
+            $("#pauseBtn").click(function () {
+                isPlaying = false;
+            });
+
+            if (isPlaying)
+                setTimeout(loop, time);
         
             }
             loop();

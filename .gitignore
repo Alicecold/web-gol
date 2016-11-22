@@ -257,3 +257,4 @@ sexyTemplate/Template/baseTemplate/src/baseTemplate/obj/Debug/netcoreapp1.0/.Inc
 sexyTemplate/Template/baseTemplate/src/baseTemplate/obj/Debug/netcoreapp1.0/dotnet-compile.rsp
 *.rsp
 *.pdb
+sexyTemplate/Template/baseTemplate/src/baseTemplate/bin/Debug/netcoreapp1.0/baseTemplate.runtimeconfig.dev.json
