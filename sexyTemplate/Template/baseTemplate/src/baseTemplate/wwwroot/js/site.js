@@ -51,36 +51,36 @@ var Game = function () {
 
 
     //Save knapp
-    var savemodal = document.getElementById('saveModal');
+    var savepopup = document.getElementById('savePop');
     var savebtn = document.getElementById("saveBtn");
     var span = document.getElementsByClassName("close")[0];
     savebtn.onclick = function () {
-        savemodal.style.display = "block";
+        savepopup.style.display = "block";
     }
     span.onclick = function () {
-        savemodal.style.display = "none";
+        savepopup.style.display = "none";
     }
     window.onclick = function (event) {
-        if (event.target == savemodal) {
-            savemodal.style.display = "none";
+        if (event.target == savepopup) {
+            savepopup.style.display = "none";
         }
-        if (event.target == loadmodal) {
-            loadmodal.style.display = "none";
+        if (event.target == loadpopup) {
+            loadpopup.style.display = "none";
         }
     }
     //Load knapp
-    var loadmodal = document.getElementById('loadModal');
+    var loadpopup = document.getElementById('loadPop');
     var loadbtn = document.getElementById("loadBtn");
     var span = document.getElementsByClassName("close")[1];
     loadbtn.onclick = function () {
-        loadmodal.style.display = "block";
+        loadpopup.style.display = "block";
     }
     span.onclick = function () {
-        loadmodal.style.display = "none";
+        loadpopup.style.display = "none";
     }
     //window.onclick = function (event) {
-    //    if (event.target == loadmodal) {
-    //        loadmodal.style.display = "none";
+    //    if (event.target == loadpopup) {
+    //        loadpopup.style.display = "none";
     //    }
     //}
 
