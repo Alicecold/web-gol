@@ -13,7 +13,7 @@ namespace baseTemplate.Controllers.webbAPI
     {
         [Route("api/[controller]")]
         // GET: /<controller>/
-        public bool[,] Default()
+        public bool[,] Load(string saveName)
         {
             
             String ConnectionString = "User ID-postgres;Password=dataMiner;Host=localhost;Port=5432;Database=life;Pooling=true";
@@ -47,6 +47,23 @@ namespace baseTemplate.Controllers.webbAPI
             //}
             return cells;
         }
-    }
+        [Route("[action]")]
+        // GET: /<controller>/
+        public string[] GetBoards()
+        {
 
+            String ConnectionString = "User ID-postgres;Password=dataMiner;Host=localhost;Port=5432;Database=life;Pooling=true";
+            NpgsqlConnection connection = new NpgsqlConnection(ConnectionString);
+            connection.Open();
+            string[] boards;
+            using (connection)
+            {
+                Life repo = new Life(connection);
+                boards=repo.Boards();
+            }
+            return boards;
+        }
+
+
+    }
 }

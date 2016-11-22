@@ -1,9 +1,10 @@
-﻿var speed = 1000;
+﻿
 var Game = function () {
     var width = document.getElementById("width").value;
     var height = document.getElementById("height").value;
     var column = "", appendRow = "", inc = 1;
     var cells = [];
+    
 
     $('#grid-size').focusout(function () {
         width = document.getElementById("width").value;
@@ -87,7 +88,7 @@ var Game = function () {
 
 
     var time = 1000;
-    playGame(cells, width, height, time); //this does not work as expected, but something temporary happens!
+    playGame(cells, width, height); //this does not work as expected, but something temporary happens!
     pauseGame(); //this does nothing
 };
 
@@ -102,13 +103,17 @@ changeRenderState = function (thisClass, thisCell) {
 }
 var pauseGame = function () {
     $("#pauseBtn").click(function () {
-        speed = 10000000;
+        speed = 0;
     });
 }
 
-var playGame = function (cells, width, height, time) {
+var playGame = function (cells, width, height) {
     $("#playBtn").click(function () {
-        setInterval(function () {
+        var speed = $('input[name="speed"]:checked').val();
+        alert(speed);
+        var time = speed;
+            function loop() {
+                  
             var toChange = $.extend(true, [], cells);
 
             //check for changes
@@ -200,9 +205,11 @@ var playGame = function (cells, width, height, time) {
                 var col = $(this).attr("data-id");
                 changeRenderState(this, cells[+row + (+col * height)]);
             });
-
-            console.log(speed);
-        }, speed);
+            setTimeout(loop, time);
+        
+            }
+            loop();
+        
     });
 }
 
@@ -235,8 +242,38 @@ var toggleSettings = function () {
     });
 }
 
+var Database = new function () {
+    var initCells = function () {
+        $.ajax(
+        {
+            type: 'get',
+            url: '/api/cells/load',
+            data: { saveName: 'first' },
+            datatype: 'json',
+            cache: false
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).done(function (cells, textStatus, jqXHR) {
+            plugin.cells = cells;
+            initBoard();
+        });
 
+
+        $.ajax(
+        {
+            type: 'get',
+            url: '/api/cells/getboards',
+            datatype: 'json',
+            cache: false
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).done(function (boards, textStatus, jqXHR) {
+ 
+            alert(boards);
+        });
+
+    };
+};
 $(document).ready(function () {
     var game = new Game();
     var menu = toggleSettings();
+    var database = new Database();
 });

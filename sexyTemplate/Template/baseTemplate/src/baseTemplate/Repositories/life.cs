@@ -30,6 +30,17 @@ namespace baseTemplate.Repositories
             return Connection.Query<Board>(sql).First();
         }
 
+        public string[] Boards()
+        {
+            string sql = "select * from public.board";
+            List<Board> boards = Connection.Query<Board>(sql).ToList();
+            string[] boardArray = new string[boards.Count];
+            for(int index=0; index<boards.Count; index++)
+            {
+                boardArray[index] = boards[index].saveName + " " + boards[index].saveDate.ToString();
+            }
 
+            return boardArray;
+        }
     }
 }
