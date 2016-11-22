@@ -33,9 +33,20 @@ namespace baseTemplate.Controllers.webbAPI
             {
                 cells[cell.xPos, cell.yPos] = cell.isAlive;
             }
+
+
+            ////width,height
+            //bool[,] cells = new bool[100, 60];
+            //Random rand = new Random();
+            //for (int x = 0; x < 100; x++)
+            //{
+            //    for (int y = 0; y < 60; y++)
+            //    {
+            //        cells[x, y] = Convert.ToBoolean(rand.Next(0, 2));
+            //    }
+            //}
             return cells;
         }
-
         [Route("[action]")]
         // GET: /<controller>/
         public string[] GetBoards()
@@ -55,5 +66,4 @@ namespace baseTemplate.Controllers.webbAPI
 
 
     }
-
 }

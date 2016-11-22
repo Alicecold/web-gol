@@ -50,6 +50,43 @@ var Game = function () {
     createGrid(width, height); //create standard grid
     randomize(cells, height); //this randomizes cells when button "randomize" is clicked
 
+
+    //Save knapp
+    var savepopup = document.getElementById('savePop');
+    var savebtn = document.getElementById("saveBtn");
+    var span = document.getElementsByClassName("close")[0];
+    savebtn.onclick = function () {
+        savepopup.style.display = "block";
+    }
+    span.onclick = function () {
+        savepopup.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == savepopup) {
+            savepopup.style.display = "none";
+        }
+        if (event.target == loadpopup) {
+            loadpopup.style.display = "none";
+        }
+    }
+    //Load knapp
+    var loadpopup = document.getElementById('loadPop');
+    var loadbtn = document.getElementById("loadBtn");
+    var span = document.getElementsByClassName("close")[1];
+    loadbtn.onclick = function () {
+        loadpopup.style.display = "block";
+    }
+    span.onclick = function () {
+        loadpopup.style.display = "none";
+    }
+    //window.onclick = function (event) {
+    //    if (event.target == loadpopup) {
+    //        loadpopup.style.display = "none";
+    //    }
+    //}
+
+
+
     var time = 1000;
     playGame(cells, width, height); //this does not work as expected, but something temporary happens!
     pauseGame(); //this does nothing
@@ -233,10 +270,8 @@ var Database = new function () {
             alert(boards);
         });
 
-
     };
 };
-
 $(document).ready(function () {
     var game = new Game();
     var menu = toggleSettings();
