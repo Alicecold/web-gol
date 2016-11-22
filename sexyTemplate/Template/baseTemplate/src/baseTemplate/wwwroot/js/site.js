@@ -204,10 +204,39 @@ var toggleSettings = function () {
     });
 }
 
+var Database = new function () {
+    var initCells = function () {
+        $.ajax(
+        {
+            type: 'get',
+            url: '/api/cells/load',
+            data: { saveName: 'first' },
+            datatype: 'json',
+            cache: false
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).done(function (cells, textStatus, jqXHR) {
+            plugin.cells = cells;
+            initBoard();
+        });
 
 
+        $.ajax(
+        {
+            type: 'get',
+            url: '/api/cells/getboards',
+            datatype: 'json',
+            cache: false
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).done(function (boards, textStatus, jqXHR) {
+            alert(boards);
+        });
+
+
+    };
+};
 
 $(document).ready(function () {
     var game = new Game();
     var menu = toggleSettings();
+    var database = new Database();
 });
