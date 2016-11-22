@@ -1,9 +1,10 @@
-﻿var speed = 1000;
+﻿
 var Game = function () {
     var width = document.getElementById("width").value;
     var height = document.getElementById("height").value;
     var column = "", appendRow = "", inc = 1;
     var cells = [];
+    var speed = $('input[name="speed"]:checked').val();
 
     $('#grid-size').focusout(function () {
         width = document.getElementById("width").value;
@@ -228,6 +229,7 @@ var Database = new function () {
             cache: false
         }).fail(function (jqXHR, textStatus, errorThrown) {
         }).done(function (boards, textStatus, jqXHR) {
+ 
             alert(boards);
         });
 
