@@ -141,13 +141,17 @@ var Game = function () {
 
     });
 
-    //$('input[name="speed"]').click(function () {
-    //    time = $('input[name="speed"]:checked').val();
-    //    isPlaying = false;
-    //});
-
     $("#playBtn").click(function () {
-        playGame(cells, width, height, true);
+        var isPlaying = true;
+        var loop = function () {
+            $("#pauseBtn").click(function () {
+                isPlaying = false;
+            });
+            cells = playGame(cells, width, height);
+            if (isPlaying)
+                setTimeout(loop, $('input[name="speed"]:checked').val()); // Keep this here and it will work perfectly! <3
+        }
+        loop();
     });
 
     
@@ -164,12 +168,7 @@ var changeRenderState = function (thisClass, thisCell) {
     
 };
 
-var playGame = function (cells, width, height, isPlaying) {
-    function loop() {
-             $("#pauseBtn").click(function () {
-                 isPlaying = false;
-             });
-            var time = $('input[name="speed"]:checked').val(); // Keep this here and it will work perfectly! <3
+var playGame = function (cells, width, height) {
             var toChange = $.extend(true, [], cells);
 
             //check for changes
@@ -244,7 +243,7 @@ var playGame = function (cells, width, height, isPlaying) {
 
                     if (cells[+col + +row * +width] && numberOfNeighbours !== 3 && numberOfNeighbours !== 2) {
                         toChange[+col + +row * +width] = false;
-                       
+
                     }
 
                     if (!cells[+col + +row * +width] && numberOfNeighbours === 3) {
@@ -262,12 +261,7 @@ var playGame = function (cells, width, height, isPlaying) {
                 var col = $(this).attr("data-id");
                 changeRenderState(this, cells[+col + +row * width]);
             });
-
-            if (isPlaying)
-                setTimeout(loop, time);
-
-        }
-        loop();
+            return cells;
 };
 
 var randomize = function (cells, width) {
