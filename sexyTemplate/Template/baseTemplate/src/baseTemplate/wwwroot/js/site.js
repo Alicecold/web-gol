@@ -42,6 +42,7 @@ var Game = function () {
 
     };
     createGrid(width, height); //create standard grid
+
     //change by click
     $(".cell").click(function () {
         var row = $(this).closest("div").attr("data-id");
@@ -153,8 +154,6 @@ var Game = function () {
         }
         loop();
     });
-
-    
 };
 
 var changeState = function (thisClass) {
@@ -169,99 +168,99 @@ var changeRenderState = function (thisClass, thisCell) {
 };
 
 var playGame = function (cells, width, height) {
-            var toChange = $.extend(true, [], cells);
+    var toChange = $.extend(true, [], cells);
 
-            //check for changes
-            for (row = 0; row < height; row++) {
-                for (col = 0; col < width; col++) {
-                    var numberOfNeighbours = 0;
+    //check for changes
+    for (row = 0; row < height; row++) {
+        for (col = 0; col < width; col++) {
+            var numberOfNeighbours = 0;
 
-                    //Up
-                    var checkRow = +row - 1;
-                    var checkCol = +col;
-                    if (checkRow < 0)
-                        checkRow = height - 1;
-                    if (cells[+checkCol + +checkRow * +width])
-                        numberOfNeighbours++;
+            //Up
+            var checkRow = +row - 1;
+            var checkCol = +col;
+            if (checkRow < 0)
+                checkRow = height - 1;
+            if (cells[+checkCol + +checkRow * +width])
+                numberOfNeighbours++;
 
-                    //Upper left
-                    checkCol = +col - 1;
-                    if (checkCol < 0)
-                        checkCol = width - 1;
-                    if (cells[+checkCol + +checkRow * +width])
-                        numberOfNeighbours++;
+            //Upper left
+            checkCol = +col - 1;
+            if (checkCol < 0)
+                checkCol = width - 1;
+            if (cells[+checkCol + +checkRow * +width])
+                numberOfNeighbours++;
 
-                    //Upper right
-                    checkCol = +col + 1;
-                    if (checkCol > width - 1)
-                        checkCol = 0;
-                    if (cells[+checkCol + +checkRow * +width])
-                        numberOfNeighbours++;
+            //Upper right
+            checkCol = +col + 1;
+            if (checkCol > width - 1)
+                checkCol = 0;
+            if (cells[+checkCol + +checkRow * +width])
+                numberOfNeighbours++;
 
-                    //Left
-                    checkRow = +row;
-                    checkCol = +col - 1;
-                    if (checkCol < 0)
-                        checkCol = width - 1;
+            //Left
+            checkRow = +row;
+            checkCol = +col - 1;
+            if (checkCol < 0)
+                checkCol = width - 1;
 
-                    if (cells[+checkCol + +checkRow * +width])
-                        numberOfNeighbours++;
+            if (cells[+checkCol + +checkRow * +width])
+                numberOfNeighbours++;
 
-                    //Right
-                    checkCol = +col + 1;
-                    if (checkCol > width - 1)
-                        checkCol = 0;
+            //Right
+            checkCol = +col + 1;
+            if (checkCol > width - 1)
+                checkCol = 0;
 
-                    if (cells[+checkCol + +checkRow * +width])
-                        numberOfNeighbours++;
+            if (cells[+checkCol + +checkRow * +width])
+                numberOfNeighbours++;
 
-                    //Down
-                    checkCol = +col;
-                    checkRow = +row + 1;
-                    if (checkRow > height - 1)
-                        checkRow = 0;
+            //Down
+            checkCol = +col;
+            checkRow = +row + 1;
+            if (checkRow > height - 1)
+                checkRow = 0;
 
-                    if (cells[+checkCol + +checkRow * +width])
-                        numberOfNeighbours++;
+            if (cells[+checkCol + +checkRow * +width])
+                numberOfNeighbours++;
 
-                    //Down left
-                    checkCol = +col - 1;
-                    if (checkCol < 0)
-                        checkCol = width - 1;
+            //Down left
+            checkCol = +col - 1;
+            if (checkCol < 0)
+                checkCol = width - 1;
 
-                    if (cells[+checkCol + +checkRow * +width])
-                        numberOfNeighbours++;
+            if (cells[+checkCol + +checkRow * +width])
+                numberOfNeighbours++;
 
-                    //Down right
-                    checkCol = +col + 1;
-                    if (checkCol > width - 1)
-                        checkCol = 0;
+            //Down right
+            checkCol = +col + 1;
+            if (checkCol > width - 1)
+                checkCol = 0;
 
-                    console.log(+checkCol + +checkRow * +width);
-                    if (cells[+checkCol + +checkRow * +width])
-                        numberOfNeighbours++;
+            console.log(+checkCol + +checkRow * +width);
+            if (cells[+checkCol + +checkRow * +width])
+                numberOfNeighbours++;
 
-                    if (cells[+col + +row * +width] && numberOfNeighbours !== 3 && numberOfNeighbours !== 2) {
-                        toChange[+col + +row * +width] = false;
+            if (cells[+col + +row * +width] && numberOfNeighbours !== 3 && numberOfNeighbours !== 2) {
+                toChange[+col + +row * +width] = false;
 
-                    }
+            }
 
-                    if (!cells[+col + +row * +width] && numberOfNeighbours === 3) {
+            if (!cells[+col + +row * +width] && numberOfNeighbours === 3) {
                         toChange[+col + +row * +width] = true;
                     }
 
                 }
             }
 
-            //apply changes
-            cells = $.extend(true, [], toChange);
-
-            $(".cell").each(function () {
-                var row = $(this).closest("div").attr("data-id");
-                var col = $(this).attr("data-id");
-                changeRenderState(this, cells[+col + +row * width]);
-            });
-            return cells;
+     //apply changes
+     cells = $.extend(true, [], toChange);
+    
+     $(".cell").each(function () {
+         var row = $(this).closest("div").attr("data-id");
+         var col = $(this).attr("data-id");
+         changeRenderState(this, cells[+col + +row * width]);
+     });
+     return cells;
 };
 
 var randomize = function (cells, width) {
