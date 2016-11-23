@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
 using Npgsql;
 using Dapper;
+using baseTemplate.Repositories;
 
 namespace baseTemplate.Repositories
 {
@@ -20,27 +20,44 @@ namespace baseTemplate.Repositories
 
         public IEnumerable<Cell> Cells(string saveName)
         {
-            String sql = "select * from public.cell where \"saveName\"='" + saveName + "'";
+            string sql = "select * from public.cell where \"saveName\"='" + saveName + "'";
             return Connection.Query<Cell>(sql);
         }
 
         public Board Board(string saveName)
         {
-            String sql = "select * from public.board where \"saveName\"='" + saveName + "'";
+            string sql = "select * from public.board where board.\"saveName\"='" + saveName + "'";
             return Connection.Query<Board>(sql).First();
         }
 
-        public string[] Boards()
+        public Board[] Boards()
         {
             string sql = "select * from public.board";
-            List<Board> boards = Connection.Query<Board>(sql).ToList();
-            string[] boardArray = new string[boards.Count];
-            for(int index=0; index<boards.Count; index++)
+            return Connection.Query<Board>(sql).ToList().ToArray();
+        }
+
+        public void CreateBoard(bool[] cells, string saveName,int width,int height)
+        {
+            string sql = "insert into public.board(\"saveName\",\"saveDate\",\"width\",\"height\") values(" +
+            "@saveName,@saveDate,@width,@height)";
+            Connection.Execute(
+                sql,
+                new { saveName = saveName, saveDate = DateTime.Now, width = width, height = height }
+            );
+
+            sql = "insert into public.cell(\"isAlive\",\"xPos\",\"yPos\",\"saveName\") values(" +
+            "@isAlive,@xPos,@yPos,@saveName)";
+            for (int x = 0; x < width; x++)
             {
-                boardArray[index] = boards[index].saveName + " " + boards[index].saveDate.ToString();
+                for (int y = 0; y < height; y++)
+                {
+                    Connection.Execute(
+                        sql,
+                        new { isAlive = cells[x + (y * width)], xPos = x, yPos = y, saveName = saveName }
+                    );
+                }
             }
 
-            return boardArray;
         }
     }
 }

@@ -18,7 +18,7 @@ var Game = function () {
         //Create array
         cells.length = height * width;
         //add elements to append row
-        for (var rows = 0; rows < height; rows++) {
+        for (rows = 0; rows < height; rows++) {
             for (var col = 0; col < width; col++) {
                 column += '<img class="dead cell" src="/images/cell.svg" data-id = ' + col + ' onclick="">';
             }
@@ -30,9 +30,9 @@ var Game = function () {
         $("#gridBoard").append(appendRow);
 
         //add corresponing elements to cell-array
-        for (var rows = 0; rows < height; rows++) {
-            for (var col = 0; col < width; col++) {
-                cells[+rows + (+col * height)] = false;
+        for (rows = 0; rows < height; rows++) {
+            for (col = 0; col < width; col++) {
+                cells[+col + +rows * width] = false;
                 // +rows => rows as a interger. vice versa with +col
                 // the calculation within the brackets are a simple 2d to 1d array conversion
             }
@@ -44,11 +44,11 @@ var Game = function () {
         $(".cell").click(function () {
             var row = $(this).closest("div").attr("data-id");
             var col = $(this).attr("data-id");
-            cells[+row + (+col * height)] = changeState(this);
+            cells[+col + +row * width] = changeState(this);
         });
     };
     createGrid(width, height); //create standard grid
-    randomize(cells, height); //this randomizes cells when button "randomize" is clicked
+    cells = randomize(cells, height); //this randomizes cells when button "randomize" is clicked
 
 
     //Save knapp
@@ -57,54 +57,77 @@ var Game = function () {
     var span = document.getElementsByClassName("close")[0];
     savebtn.onclick = function () {
         savepopup.style.display = "block";
-    }
+    };
     span.onclick = function () {
         savepopup.style.display = "none";
-    }
+    };
     window.onclick = function (event) {
-        if (event.target == savepopup) {
+        if (event.target === savepopup) {
             savepopup.style.display = "none";
         }
-        if (event.target == loadpopup) {
+        if (event.target === loadpopup) {
             loadpopup.style.display = "none";
         }
-    }
+    };
     //Load knapp
     var loadpopup = document.getElementById('loadPop');
     var loadbtn = document.getElementById("loadBtn");
-    var span = document.getElementsByClassName("close")[1];
+    span = document.getElementsByClassName("close")[1];
     loadbtn.onclick = function () {
         loadpopup.style.display = "block";
-    }
+    };
     span.onclick = function () {
         loadpopup.style.display = "none";
-    }
-    //window.onclick = function (event) {
-    //    if (event.target == loadpopup) {
-    //        loadpopup.style.display = "none";
-    //    }
-    //}
+    };
+
+
 
     playGame(cells, width, height);
+
+    //Saving files
+    $('#saveSave').click(function () {
+        $.ajax(
+        {
+            type: 'post',
+            url: '/api/cells/save',
+            data: JSON.stringify({ saveName: $('#saveBar').val(), cells, width, height }),
+            contentType:'application/json; charset=utf-8',
+            datatype: 'json',
+            cache: false
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).done(function (cells, textStatus, jqXHR) {
+            plugin.cells = cells;
+            initBoard();
+        });
+
+    });
 };
 
 changeState = function (thisClass) {
     $(thisClass).toggleClass('dead alive'); // toogle class that was sent in
     return $(thisClass).hasClass('alive'); //set isAlive of current index to true if class of element is alive.
-}
+};
 
 changeRenderState = function (thisClass, thisCell) {
-    if ($(thisClass).hasClass('alive') != thisCell) // if rendered cell is not alive, but logical cell is, or vice versa
+    if ($(thisClass).hasClass('alive') !== thisCell) // if rendered cell is not alive, but logical cell is, or vice versa
         $(thisClass).toggleClass('dead alive'); // toogle class of rendered cell
-}
+    
+};
 
 var playGame = function (cells, width, height) {
+    var isPlaying = true;
+    var time = $('input[name="speed"]:checked').val();
+    $('input[name="speed"]').click(function () {
+        time = $('input[name="speed"]:checked').val();
+        isPlaying = false;
+    });
+    
     $("#playBtn").click(function () {
-        var isPlaying = true;
-        var speed = $('input[name="speed"]:checked').val();
-        var time = speed;
-            function loop() {
-                  
+        //var isPlaying = true;
+        //var speed = $('input[name="speed"]:checked').val();
+        //var time = speed;
+        function loop() {
+
             var toChange = $.extend(true, [], cells);
 
             //check for changes
@@ -117,21 +140,21 @@ var playGame = function (cells, width, height) {
                     var checkCol = +col;
                     if (checkRow < 0)
                         checkRow = height - 1;
-                    if (cells[+checkRow + (+checkCol * +height)])
+                    if (cells[+checkCol + +checkRow * +width])
                         numberOfNeighbours++;
 
                     //Upper left
                     checkCol = +col - 1;
                     if (checkCol < 0)
                         checkCol = width - 1;
-                    if (cells[+checkRow + (+checkCol * +height)])
+                    if (cells[+checkCol + +checkRow * +width])
                         numberOfNeighbours++;
 
                     //Upper right
                     checkCol = +col + 1;
                     if (checkCol > width - 1)
                         checkCol = 0;
-                    if (cells[+checkRow + (+checkCol * +height)])
+                    if (cells[+checkCol + +checkRow * +width])
                         numberOfNeighbours++;
 
                     //Left
@@ -140,7 +163,7 @@ var playGame = function (cells, width, height) {
                     if (checkCol < 0)
                         checkCol = width - 1;
 
-                    if (cells[+checkRow + (+checkCol * +height)])
+                    if (cells[+checkCol + +checkRow * +width])
                         numberOfNeighbours++;
 
                     //Right
@@ -148,7 +171,7 @@ var playGame = function (cells, width, height) {
                     if (checkCol > width - 1)
                         checkCol = 0;
 
-                    if (cells[+checkRow + (+checkCol * +height)])
+                    if (cells[+checkCol + +checkRow * +width])
                         numberOfNeighbours++;
 
                     //Down
@@ -157,7 +180,7 @@ var playGame = function (cells, width, height) {
                     if (checkRow > height - 1)
                         checkRow = 0;
 
-                    if (cells[+checkRow + (+checkCol * +height)])
+                    if (cells[+checkCol + +checkRow * +width])
                         numberOfNeighbours++;
 
                     //Down left
@@ -165,7 +188,7 @@ var playGame = function (cells, width, height) {
                     if (checkCol < 0)
                         checkCol = width - 1;
 
-                    if (cells[+checkRow + (+checkCol * +height)])
+                    if (cells[+checkCol + +checkRow * +width])
                         numberOfNeighbours++;
 
                     //Down right
@@ -173,16 +196,16 @@ var playGame = function (cells, width, height) {
                     if (checkCol > width - 1)
                         checkCol = 0;
 
-                    if (cells[+checkRow + (+checkCol * +height)])
+                    if (cells[+checkCol + +checkRow * +width])
                         numberOfNeighbours++;
 
-
-                    if (cells[+row + (+col * +height)] && numberOfNeighbours != 3 && numberOfNeighbours != 2) {
-                        toChange[+row + (+col * +height)] = false;
+                    console.log(numberOfNeighbours);
+                    if (cells[+col + +row * +width] && numberOfNeighbours !== 3 && numberOfNeighbours !== 2) {
+                        toChange[+col + +row * +width] = false;
                     }
 
-                    if (!cells[+row + (+col * +height)] && numberOfNeighbours == 3) {
-                        toChange[+row + (+col * +height)] = true;
+                    if (!cells[+col + +row * +width] && numberOfNeighbours === 3) {
+                        toChange[+col + +row * +width] = true;
                     }
 
                 }
@@ -190,11 +213,11 @@ var playGame = function (cells, width, height) {
 
             //apply changes
             cells = $.extend(true, [], toChange); //This should be a deep copy but acts ver much like a shallow one
-            
+
             $(".cell").each(function () {
                 var row = $(this).closest("div").attr("data-id");
                 var col = $(this).attr("data-id");
-                changeRenderState(this, cells[+row + (+col * height)]);
+                changeRenderState(this, cells[+col + +row * width]);
             });
 
             $("#pauseBtn").click(function () {
@@ -203,24 +226,25 @@ var playGame = function (cells, width, height) {
 
             if (isPlaying)
                 setTimeout(loop, time);
-        
-            }
-            loop();
-        
-    });
-}
 
-var randomize = function(cells, height){
+        }
+        loop();
+
+    });
+};
+
+var randomize = function (cells, height) {
     $("#randomizeBtn").click(function () {
         $(".cell").each(function () {
             if (Math.random() > 0.75) {
                 var row = $(this).closest("div").attr("data-id");
                 var col = $(this).attr("data-id");
-                cells[+row + (+col * height)] = changeState(this);
+                cells[+col + +row * width] = changeState(this);
             }
         });
     });
-}
+    return cells;
+};
 var toggleSettings = function () {
     $('#settings').click(function () {
         $('.myCol').show();
@@ -237,40 +261,43 @@ var toggleSettings = function () {
         if ($(window).width() < 500)// if less than
             $('.myCol').hide();
     });
-}
-
-var Database = new function () {
-    var initCells = function () {
-        $.ajax(
-        {
-            type: 'get',
-            url: '/api/cells/load',
-            data: { saveName: 'first' },
-            datatype: 'json',
-            cache: false
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-        }).done(function (cells, textStatus, jqXHR) {
-            plugin.cells = cells;
-            initBoard();
-        });
-
-
-        $.ajax(
-        {
-            type: 'get',
-            url: '/api/cells/getboards',
-            datatype: 'json',
-            cache: false
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-        }).done(function (boards, textStatus, jqXHR) {
- 
-            alert(boards);
-        });
-
-    };
 };
+
+//var Database = new function (cells) {
+//    var initCells = function () {
+
+
+
+//        $.ajax(
+//        {
+//            type: 'get',
+//            url: '/api/cells/load',
+//            data: { saveName: 'first' },
+//            datatype: 'json',
+//            cache: false
+//        }).fail(function (jqXHR, textStatus, errorThrown) {
+//        }).done(function (cells, textStatus, jqXHR) {
+//            plugin.cells = cells;
+//            initBoard();
+//        });
+
+
+//        $.ajax(
+//        {
+//            type: 'get',
+//            url: '/api/cells/getboards',
+//            datatype: 'json',
+//            cache: false
+//        }).fail(function (jqXHR, textStatus, errorThrown) {
+//        }).done(function (boards, textStatus, jqXHR) {
+ 
+//            alert(boards);
+//        });
+
+//    };
+//};
 $(document).ready(function () {
     var game = new Game();
     var menu = toggleSettings();
-    var database = new Database();
+    //var database = new Database();
 });
