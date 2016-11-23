@@ -10,11 +10,12 @@ var Game = function () {
         width = document.getElementById("width").value;
         height = document.getElementById("height").value;
 
-        $('#gridBoard').empty();
         createGrid(height, width);
     });
 
     var createGrid = function (height, width) {
+        //Empty board
+        $('#gridBoard').empty();
         //Create array
         cells.length = height * width;
         //add elements to append row
@@ -39,17 +40,16 @@ var Game = function () {
         }
         appendRow = "";
 
-
-        //change by click
-        $(".cell").click(function () {
-            var row = $(this).closest("div").attr("data-id");
-            var col = $(this).attr("data-id");
-            cells[+col + +row * width] = changeState(this);
-        });
     };
     createGrid(width, height); //create standard grid
+    //change by click
+    $(".cell").click(function () {
+        var row = $(this).closest("div").attr("data-id");
+        var col = $(this).attr("data-id");
+        cells[+col + +row * width] = changeState(this);
+    });
     $("#randomizeBtn").click(function () {
-        cells = randomize(cells, height); //this randomizes cells when button "randomize" is clicked
+        cells = randomize(cells, width); //this randomizes cells when button "randomize" is clicked
     });
 
     //Save popup
@@ -141,15 +141,13 @@ var Game = function () {
 
     });
 
-    var isPlaying = true;
-    var time = $('input[name="speed"]:checked').val();
-    $('input[name="speed"]').click(function () {
-        time = $('input[name="speed"]:checked').val();
-        isPlaying = false;
-    });
-    
+    //$('input[name="speed"]').click(function () {
+    //    time = $('input[name="speed"]:checked').val();
+    //    isPlaying = false;
+    //});
+
     $("#playBtn").click(function () {
-        playGame(cells, width, height, isPlaying);
+        playGame(cells, width, height, true);
     });
 
     
@@ -167,12 +165,11 @@ var changeRenderState = function (thisClass, thisCell) {
 };
 
 var playGame = function (cells, width, height, isPlaying) {
-
-        //var isPlaying = true;
-        //var speed = $('input[name="speed"]:checked').val();
-        //var time = speed;
-        function loop() {
-
+    function loop() {
+             $("#pauseBtn").click(function () {
+                 isPlaying = false;
+             });
+            var time = $('input[name="speed"]:checked').val(); // Keep this here and it will work perfectly! <3
             var toChange = $.extend(true, [], cells);
 
             //check for changes
@@ -266,10 +263,6 @@ var playGame = function (cells, width, height, isPlaying) {
                 changeRenderState(this, cells[+col + +row * width]);
             });
 
-            $("#pauseBtn").click(function () {
-                isPlaying = false;
-            });
-
             if (isPlaying)
                 setTimeout(loop, time);
 
@@ -277,15 +270,14 @@ var playGame = function (cells, width, height, isPlaying) {
         loop();
 };
 
-var randomize = function (cells, height) {
-
-        $(".cell").each(function () {
-            if (Math.random() > 0.75) {
-                var row = $(this).closest("div").attr("data-id");
-                var col = $(this).attr("data-id");
-                cells[+col + +row * width] = changeState(this);
-            }
-        });
+var randomize = function (cells, width) {
+    $(".cell").each(function () {
+        if (Math.random() > 0.75) {
+            var row = $(this).closest("div").attr("data-id");
+            var col = $(this).attr("data-id");
+            cells[+col + +row * width] = changeState(this);
+        }
+    });
     return cells;
 };
 var toggleSettings = function () {
