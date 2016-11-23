@@ -60,6 +60,23 @@ var Game = function () {
         span.click( function () {
             save.css("display", "none");
         });
+
+        //Saving files
+        $('#saveSave').click(function () {
+            $.ajax(
+            {
+                type: 'post',
+                url: '/api/cells/save',
+                data: JSON.stringify({ saveName: $('#saveBar').val(), cells, width, height }),
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'json',
+                cache: false
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+            }).done(function (cells, textStatus, jqXHR) {
+                plugin.cells = cells;
+                initBoard();
+            });
+        });
     });
     //load popup
     $('#loadBtn').click(function () {
@@ -71,25 +88,54 @@ var Game = function () {
             cache: false
         }).fail(function (jqXHR, textStatus, errorThrown) {
         }).done(function (boards, textStatus, jqXHR) {
+            var appendSaves = "";
             //Populera listan i popup
             //alert(boards[1].saveName + boards[1].saveDate);
             var load = $('#loadPop');
             var span = $('.close');
             load.css("display", "block");
-            span.click( function () {
+            span.click(function () {
                 load.css("display", "none");
             });
+            $('#showData').empty();
+            for (var i = 0; i < boards.length && i < 5; i++)
+            {
+                appendSaves = '<p class="loadFile" data-savename="' + boards[i].saveName + '" onclick="">' + boards[i].saveName + ' ' + boards[i].saveDate + '<br></p>';
+                $('#showData').append(appendSaves);
+            }
+           
+            
+            $('.loadFile').click(function ()
+            {
+                var link = $(this);
+                var saveName = link.attr('data-savename');
+                alert(saveName);
+                //Do your ajax stuff here...
+                $.ajax({
+                    type: 'get',
+                    url: '/api/cells/Load',
+                    data: {saveName:saveName},
+                    datatype: 'json',
+                    cache: false
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                }).done(function (cellData, textStatus, jqXHR) {
+                    var width = cellData.length;
+                    var height = cellData[0].length;
+                    alert(width + " " + height);
+                    var toCells = [];
+                    toCells.length = width * height;
 
-            for (var i = 0; i < 5; i++) {
-                $("#showData").append("<tr id='loadFile" + i + "'><td><a>" + boards[i].saveName + " " + boards[i].saveDate + "</a></td></tr>");
-                $("#loadFile" + i).click(function () {
-                    alert("loading file " + $(this).attr("id"));
-
-
+                    for (var y = 0; y < height; y++) {
+                        for (var x = 0; x < width; x++) {
+                            toCells[x + y * width] = cellData[x][y].isAlive;
+                        }
+                    }
+                    createGrid(width, height);
+                    cells = $.extend(true, [], toCells);
                     load.css("display", "none");
                 });
-            }
-            
+
+            });
             
         });
 
@@ -106,22 +152,7 @@ var Game = function () {
         playGame(cells, width, height, isPlaying);
     });
 
-    //Saving files
-    $('#saveSave').click(function () {
-        $.ajax(
-        {
-            type: 'post',
-            url: '/api/cells/save',
-            data: JSON.stringify({ saveName: $('#saveBar').val(), cells, width, height }),
-            contentType:'application/json; charset=utf-8',
-            datatype: 'json',
-            cache: false
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-        }).done(function (cells, textStatus, jqXHR) {
-            plugin.cells = cells;
-            initBoard();
-        });
-    });
+    
 };
 
 var changeState = function (thisClass) {

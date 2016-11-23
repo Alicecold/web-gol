@@ -209,10 +209,6 @@ button:hover{
     width: 60%;
 }
 
-table{
-    white-space: pre;
-}
-
 
 @font-face{
     font-family: balsamiq;
