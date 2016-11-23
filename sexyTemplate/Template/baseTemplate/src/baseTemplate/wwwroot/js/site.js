@@ -48,41 +48,63 @@ var Game = function () {
         });
     };
     createGrid(width, height); //create standard grid
-    cells = randomize(cells, height); //this randomizes cells when button "randomize" is clicked
+    $("#randomizeBtn").click(function () {
+        cells = randomize(cells, height); //this randomizes cells when button "randomize" is clicked
+    });
+
+    //Save popup
+    $('#saveBtn').click(function () {
+        var save = $('#savePop');
+        var span = $('.close');
+        save.css("display", "block");
+        span.click( function () {
+            save.css("display", "none");
+        });
+    });
+    //load popup
+    $('#loadBtn').click(function () {
+        $.ajax(
+        {
+            type: 'get',
+            url: '/api/cells/getboards',
+            datatype: 'json',
+            cache: false
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).done(function (boards, textStatus, jqXHR) {
+            //Populera listan i popup
+            //alert(boards[1].saveName + boards[1].saveDate);
+            var load = $('#loadPop');
+            var span = $('.close');
+            load.css("display", "block");
+            span.click( function () {
+                load.css("display", "none");
+            });
+
+            for (var i = 0; i < 5; i++) {
+                $("#showData").append("<tr id='loadFile" + i + "'><td><a>" + boards[i].saveName + " " + boards[i].saveDate + "</a></td></tr>");
+                $("#loadFile" + i).click(function () {
+                    alert("loading file " + $(this).attr("id"));
 
 
-    //Save knapp
-    var savepopup = document.getElementById('savePop');
-    var savebtn = document.getElementById("saveBtn");
-    var span = document.getElementsByClassName("close")[0];
-    savebtn.onclick = function () {
-        savepopup.style.display = "block";
-    };
-    span.onclick = function () {
-        savepopup.style.display = "none";
-    };
-    window.onclick = function (event) {
-        if (event.target === savepopup) {
-            savepopup.style.display = "none";
-        }
-        if (event.target === loadpopup) {
-            loadpopup.style.display = "none";
-        }
-    };
-    //Load knapp
-    var loadpopup = document.getElementById('loadPop');
-    var loadbtn = document.getElementById("loadBtn");
-    span = document.getElementsByClassName("close")[1];
-    loadbtn.onclick = function () {
-        loadpopup.style.display = "block";
-    };
-    span.onclick = function () {
-        loadpopup.style.display = "none";
-    };
+                    load.css("display", "none");
+                });
+            }
+            
+            
+        });
 
+    });
 
-
-    playGame(cells, width, height);
+    var isPlaying = true;
+    var time = $('input[name="speed"]:checked').val();
+    $('input[name="speed"]').click(function () {
+        time = $('input[name="speed"]:checked').val();
+        isPlaying = false;
+    });
+    
+    $("#playBtn").click(function () {
+        playGame(cells, width, height, isPlaying);
+    });
 
     //Saving files
     $('#saveSave').click(function () {
@@ -99,30 +121,22 @@ var Game = function () {
             plugin.cells = cells;
             initBoard();
         });
-
     });
 };
 
-changeState = function (thisClass) {
+var changeState = function (thisClass) {
     $(thisClass).toggleClass('dead alive'); // toogle class that was sent in
     return $(thisClass).hasClass('alive'); //set isAlive of current index to true if class of element is alive.
 };
 
-changeRenderState = function (thisClass, thisCell) {
+var changeRenderState = function (thisClass, thisCell) {
     if ($(thisClass).hasClass('alive') !== thisCell) // if rendered cell is not alive, but logical cell is, or vice versa
         $(thisClass).toggleClass('dead alive'); // toogle class of rendered cell
     
 };
 
-var playGame = function (cells, width, height) {
-    var isPlaying = true;
-    var time = $('input[name="speed"]:checked').val();
-    $('input[name="speed"]').click(function () {
-        time = $('input[name="speed"]:checked').val();
-        isPlaying = false;
-    });
-    
-    $("#playBtn").click(function () {
+var playGame = function (cells, width, height, isPlaying) {
+
         //var isPlaying = true;
         //var speed = $('input[name="speed"]:checked').val();
         //var time = speed;
@@ -196,12 +210,13 @@ var playGame = function (cells, width, height) {
                     if (checkCol > width - 1)
                         checkCol = 0;
 
+                    console.log(+checkCol + +checkRow * +width);
                     if (cells[+checkCol + +checkRow * +width])
                         numberOfNeighbours++;
 
-                    console.log(numberOfNeighbours);
                     if (cells[+col + +row * +width] && numberOfNeighbours !== 3 && numberOfNeighbours !== 2) {
                         toChange[+col + +row * +width] = false;
+                       
                     }
 
                     if (!cells[+col + +row * +width] && numberOfNeighbours === 3) {
@@ -212,7 +227,7 @@ var playGame = function (cells, width, height) {
             }
 
             //apply changes
-            cells = $.extend(true, [], toChange); //This should be a deep copy but acts ver much like a shallow one
+            cells = $.extend(true, [], toChange);
 
             $(".cell").each(function () {
                 var row = $(this).closest("div").attr("data-id");
@@ -229,12 +244,10 @@ var playGame = function (cells, width, height) {
 
         }
         loop();
-
-    });
 };
 
 var randomize = function (cells, height) {
-    $("#randomizeBtn").click(function () {
+
         $(".cell").each(function () {
             if (Math.random() > 0.75) {
                 var row = $(this).closest("div").attr("data-id");
@@ -242,7 +255,6 @@ var randomize = function (cells, height) {
                 cells[+col + +row * width] = changeState(this);
             }
         });
-    });
     return cells;
 };
 var toggleSettings = function () {
@@ -263,41 +275,8 @@ var toggleSettings = function () {
     });
 };
 
-//var Database = new function (cells) {
-//    var initCells = function () {
 
-
-
-//        $.ajax(
-//        {
-//            type: 'get',
-//            url: '/api/cells/load',
-//            data: { saveName: 'first' },
-//            datatype: 'json',
-//            cache: false
-//        }).fail(function (jqXHR, textStatus, errorThrown) {
-//        }).done(function (cells, textStatus, jqXHR) {
-//            plugin.cells = cells;
-//            initBoard();
-//        });
-
-
-//        $.ajax(
-//        {
-//            type: 'get',
-//            url: '/api/cells/getboards',
-//            datatype: 'json',
-//            cache: false
-//        }).fail(function (jqXHR, textStatus, errorThrown) {
-//        }).done(function (boards, textStatus, jqXHR) {
- 
-//            alert(boards);
-//        });
-
-//    };
-//};
 $(document).ready(function () {
     var game = new Game();
     var menu = toggleSettings();
-    //var database = new Database();
 });

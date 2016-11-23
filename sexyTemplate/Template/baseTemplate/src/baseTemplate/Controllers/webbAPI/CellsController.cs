@@ -19,30 +19,7 @@ namespace baseTemplate.Controllers.webbAPI
     [Route("api/[controller]")]
     public class CellsController : Controller
     {
-        // GET: /<controller>/
-        //public bool[] Load(string saveName)
-        //{
-            
-            //String ConnectionString = "User ID-postgres;Password=dataMiner;Host=localhost;Port=5432;Database=life;Pooling=true";
-            //NpgsqlConnection connection = new NpgsqlConnection(ConnectionString);
-            //connection.Open();
-            //List<Cell> dbcells;
-            //Board board;
-            //using (connection)
-            //{
-            //    Life repo = new Life(connection);
-            //    dbcells = repo.Cells("first").ToList();
-            //    board = repo.Board("first");
-            //}
-
-            //bool[,] cells = new bool[100, 60];
-            //foreach(Cell cell in dbcells)
-            //{
-            //    cells[cell.xPos, cell.yPos] = cell.isAlive;
-            //}
-
-            //return cells;
-        //}
+        
         [Route("[action]")]
         // GET: /<controller>/
         public Board[] GetBoards()
