@@ -142,10 +142,10 @@ var Game = function () {
 
     });
 
-    $("#playBtn").click(function () {
+    $(".playBtn").click(function () {
         var isPlaying = true;
         var loop = function () {
-            $("#pauseBtn").click(function () {
+            $(".pauseBtn").click(function () {
                 isPlaying = false;
             });
             cells = playGame(cells, width, height);
@@ -236,7 +236,6 @@ var playGame = function (cells, width, height) {
             if (checkCol > width - 1)
                 checkCol = 0;
 
-            console.log(+checkCol + +checkRow * +width);
             if (cells[+checkCol + +checkRow * +width])
                 numberOfNeighbours++;
 
