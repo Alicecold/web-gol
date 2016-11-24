@@ -24,7 +24,7 @@ var Game = function () {
             for (var col = 0; col < width; col++) {
                 column += '<img class="dead cell" src="/images/cell.svg" data-id = ' + col + ' onclick="">';
             }
-            appendRow += "<div data-id='" + rows + "' >" + column + "</div>";
+            appendRow += "<div class='cellRow' data-id='" + rows + "' >" + column + "</div>";
             column = "";
             inc++;
         }
@@ -34,6 +34,11 @@ var Game = function () {
         //Change size of cells  
         $('.cell').each(function(){
             $(this).css('width', 'calc(100% /' + width + ')');
+            $(this).css('height', 'calc(100% /' + height + ')');
+        });
+
+        $('.cellRow').each(function () {
+            $(this).css('height', 'calc(100% /' + height + ')');
         });
 
         //add corresponing elements to cell-array
@@ -46,15 +51,16 @@ var Game = function () {
         }
         appendRow = "";
 
+        //change by click
+        $(".cell").click(function () {
+            var row = $(this).closest("div").attr("data-id");
+            var col = $(this).attr("data-id");
+            cells[+col + +row * width] = changeState(this);
+        });
+
     };
     createGrid(width, height); //create standard grid
 
-    //change by click
-    $(".cell").click(function () {
-        var row = $(this).closest("div").attr("data-id");
-        var col = $(this).attr("data-id");
-        cells[+col + +row * width] = changeState(this);
-    });
     $("#randomizeBtn").click(function () {
         cells = randomize(cells, width); //this randomizes cells when button "randomize" is clicked
     });

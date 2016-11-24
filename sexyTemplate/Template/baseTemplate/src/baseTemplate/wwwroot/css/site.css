@@ -8,16 +8,28 @@
 .cell{
     display: inline-block;
     width: calc(100% / 20);
+    height: calc(100% / 20);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.cellRow{
+    /*border: 1px solid black;*/
+    height: auto;
 }
 
 .dead{
-    border: 2px solid green;
-    background: green;
+    /*border: 2px solid green;*/
+    /*background: green;*/
+    -ms-filter: grayscale(100%) brightness(500%);
+    filter: grayscale(100%) brightness(500%);
 }
 
 .alive{
-    border: 2px solid pink;
-    background: pink;
+    /*border: 2px solid pink;*/
+    /*background: pink;*/
+    -ms-filter: hue-rotate(180deg) brightness(200%) saturate(150%);
+    filter: hue-rotate(180deg) brightness(200%) saturate(150%);
 }
 
 
@@ -87,7 +99,7 @@ input[type=radio] {
 }
 .board{
     width: 100%;
-    height: auto;
+    height: 100%;
     padding: 10px 30px;
 }
 
