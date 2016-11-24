@@ -9,40 +9,72 @@ using Npgsql;
 
 namespace baseTemplate.Controllers.webbAPI
 {
+    public struct ParamBoard
+    {
+        public bool[] Cells { get; set; }
+        public string SaveName { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+    }
+    [Route("api/[controller]")]
     public class CellsController : Controller
     {
-        [Route("api/[controller]")]
-        // GET: /<controller>/
-        public bool[,] Default()
+
+        [Route("[action]")]
+        public bool[,] Load(string saveName)
         {
-            //width,height
-            String ConnectionString = "User ID-postgres;Password=dataMiner;Host=localhost;Port=5432;Database=life;Pooling=true";
+            string ConnectionString = "User ID=postgres;Password=Nisse;Host=localhost;Port=5432;Database=life;Pooling=true;";
+            NpgsqlConnection connection = new NpgsqlConnection(ConnectionString);
+            connection.Open();
+            List<Cell> dbcells;
+            Board board;
+            using (connection)
+            {
+                Life repo = new Life(connection);
+                dbcells = repo.Cells(saveName).ToList();
+                board = repo.Board(saveName);
+            }
+
+            bool[,] cells = new bool[board.width, board.height];
+            foreach (Cell cell in dbcells)
+            {
+                cells[cell.xPos, cell.yPos] = cell.isAlive;
+            }
+            return cells;
+        }
+
+        [Route("[action]")]
+        // GET: /<controller>/
+        public Board[] GetBoards()
+        {
+            string ConnectionString = "User ID=postgres;Password=Nisse;Host=localhost;Port=5432;Database=life;Pooling=true;";
+            NpgsqlConnection connection = new NpgsqlConnection(ConnectionString);
+            connection.Open();
+            Board[] boards;
+            using (connection)
+            {
+                Life repo = new Life(connection);
+                boards = repo.Boards();
+            }
+            return boards;
+
+        }
+
+        //Saving
+        [Route("[action]")]
+        public bool Save([FromBodyAttribute] ParamBoard board)
+        {
+            bool[] cells = board.Cells;
+            string saveName = board.SaveName;
+            string ConnectionString = "User ID=postgres;Password=Nisse;Host=localhost;Port=5432;Database=life;Pooling=true;";
             NpgsqlConnection connection = new NpgsqlConnection(ConnectionString);
             connection.Open();
             using (connection)
             {
-                Life repo = new Life();
-                List<Cell> dbcells = repo.Cells("first").ToList();
+                Life repo = new Life(connection);
+                repo.CreateBoard(cells, saveName, board.Width, board.Height);
             }
-
-
-
-
-            bool[,] cells = new bool[100, 60];
-            Random rand = new Random();
-            for (int x = 0; x < 100; x++)
-            {
-                for (int y = 0; y < 60; y++)
-                {
-                    cells[x, y] = Convert.ToBoolean(rand.Next(0, 2));
-                }
-            }
-            return cells;
+            return true;
         }
     }
-
-    internal class Life
-    {
-    }
-
 }
