@@ -111,15 +111,13 @@ var Game = function () {
                 load.css("display", "none");
             });
             $('#showData').empty();
-            for (var i = 0; i < boards.length && i < 5; i++)
-            {
+            for (var i = 0; i < boards.length && i < 5; i++) {
                 appendSaves = '<p class="loadFile" data-savename="' + boards[i].saveName + '" onclick="">' + boards[i].saveName + ' ' + boards[i].saveDate + '<br></p>';
                 $('#showData').append(appendSaves);
             }
-           
-            
-            $('.loadFile').click(function ()
-            {
+
+
+            $('.loadFile').click(function () {
                 var link = $(this);
                 var saveName = link.attr('data-savename');
                 alert(saveName);
@@ -127,7 +125,7 @@ var Game = function () {
                 $.ajax({
                     type: 'get',
                     url: '/api/cells/Load',
-                    data: {saveName:saveName},
+                    data: { saveName: saveName },
                     datatype: 'json',
                     cache: false
                 }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -149,9 +147,9 @@ var Game = function () {
                 });
 
             });
-            
-        });
 
+        });
+       
     });
 
     $(".playBtn").click(function () {
@@ -163,7 +161,7 @@ var Game = function () {
             cells = playGame(cells, width, height);
             if (isPlaying)
                 setTimeout(loop, $('input[name="speed"]:checked').val()); // Keep this here and it will work perfectly! <3
-        }
+        };
         loop();
     });
 };
