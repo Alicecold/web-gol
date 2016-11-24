@@ -11,16 +11,16 @@
 *.userprefs
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
+sexyTemplate/Template/baseTemplate/src/baseTemplate/[Dd]ebug/
+sexyTemplate/Template/baseTemplate/src/baseTemplate/[Dd]ebugPublic/
+sexyTemplate/Template/baseTemplate/src/baseTemplate/[Rr]elease/
+sexyTemplate/Template/baseTemplate/src/baseTemplate/[Rr]eleases/
+sexyTemplate/Template/baseTemplate/src/baseTemplate/x64/
+sexyTemplate/Template/baseTemplate/src/baseTemplate/x86/
+sexyTemplate/Template/baseTemplate/src/baseTemplate/bld/
+sexyTemplate/Template/baseTemplate/src/baseTemplate/[Bb]in/
+sexyTemplate/Template/baseTemplate/src/baseTemplate/[Oo]bj/
+sexyTemplate/Template/baseTemplate/src/baseTemplate/[Ll]og/
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -254,3 +254,7 @@ paket-files/
 sexyTemplate/Template/baseTemplate/.vs/baseTemplate/v14/.suo
 sexyTemplate/Template/baseTemplate/src/baseTemplate/obj/Debug/netcoreapp1.0/dotnet-compile.rsp
 sexyTemplate/Template/baseTemplate/src/baseTemplate/obj/Debug/netcoreapp1.0/.IncrementalCache
+sexyTemplate/Template/baseTemplate/src/baseTemplate/obj/Debug/netcoreapp1.0/dotnet-compile.rsp
+*.rsp
+*.pdb
+sexyTemplate/Template/baseTemplate/src/baseTemplate/bin/Debug/netcoreapp1.0/baseTemplate.runtimeconfig.dev.json

@@ -45,9 +45,9 @@
 
                     <div class="speed">
                         <form id="formSpeed">
-                            <input id="speedSlow" type="radio" name="speed" value="slow"/><label for="speedSlow">Slow</label>
-                            <input id="speedNormal" type="radio" name="speed" value="normal" checked/><label for="speedNormal">Normal</label>
-                            <input id="speedFast" type="radio" name="speed" value="fast"><label for="speedFast">Fast</label>
+                            <input id="speedSlow" type="radio" name="speed" value="500"/><label for="speedSlow">Slow</label>
+                            <input id="speedNormal" type="radio" name="speed" value="100" checked/><label for="speedNormal">Normal</label>
+                            <input id="speedFast" type="radio" name="speed" value="20"><label for="speedFast">Fast</label>
                         </form>
                     </div>
                  <button type="button" id="randomizeBtn">Randomize</button>
@@ -59,11 +59,32 @@
                 <div>
                     <h4>Database</h4>
                         <button type="button" id="saveBtn">Save current game</button>
-                        <button type="button">Load current game</button>
+                        <button type="button" id="loadBtn">Load current game</button>
                 </div>
+                
             </div>
 
         </div>
+        
+    </div>
+    <div id="savePop" class="modal">
+        <div class="modal-content">
+            <span class="close">x</span>
+            <h3>Save Game</h3>
+            <form>
+                <label>Name</label>
+                <input id="saveBar" type="text">
+            </form>
+            <button type="button" id="saveSave">Save</button>
+        </div>
+    </div>
+    <div id="loadPop" class="modal">
+        <div class="modal-content">
+            <span class="close">x</span>
+            <h3>Load Game</h3>
+            <div id="showData">
 
+            </div>
+        </div>
     </div>
 </div>
