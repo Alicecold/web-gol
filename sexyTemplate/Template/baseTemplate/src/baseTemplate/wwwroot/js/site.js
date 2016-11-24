@@ -18,6 +18,7 @@ var Game = function () {
         $('#gridBoard').empty();
         //Create array
         cells.length = height * width;
+
         //add elements to append row
         for (rows = 0; rows < height; rows++) {
             for (var col = 0; col < width; col++) {
@@ -29,6 +30,11 @@ var Game = function () {
         }
         //add elements to html-doc, within #gridboard
         $("#gridBoard").append(appendRow);
+
+        //Change size of cells  
+        $('.cell').each(function(){
+            $(this).css('width', 'calc(100% /' + width + ')');
+        });
 
         //add corresponing elements to cell-array
         for (rows = 0; rows < height; rows++) {
