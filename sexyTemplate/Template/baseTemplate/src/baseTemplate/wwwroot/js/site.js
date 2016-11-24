@@ -1,14 +1,14 @@
 ﻿
 var Game = function () {
-    var width = document.getElementById("width").value;
-    var height = document.getElementById("height").value;
+    var width = $('#width').val();
+    var height = $('#height').val();
     var column = "", appendRow = "", inc = 1;
     var cells = [];
     
 
     $('#grid-size').focusout(function () {
-        width = document.getElementById("width").value;
-        height = document.getElementById("height").value;
+        width = $('#width').val();
+        height = $('#height').val();
 
         createGrid(height, width);
     });
