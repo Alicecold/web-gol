@@ -19,15 +19,13 @@
 }
 
 .dead{
-    /*border: 2px solid green;*/
-    /*background: green;*/
+    -webkit-filter: grayscale(100%) brightness(500%);
     -ms-filter: grayscale(100%) brightness(500%);
     filter: grayscale(100%) brightness(500%);
 }
 
 .alive{
-    /*border: 2px solid pink;*/
-    /*background: pink;*/
+    -webkit-filter: hue-rotate(180deg) brightness(200%) saturate(150%);
     -ms-filter: hue-rotate(180deg) brightness(200%) saturate(150%);
     filter: hue-rotate(180deg) brightness(200%) saturate(150%);
 }
