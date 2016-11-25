@@ -203,6 +203,11 @@ button:hover{
     text-decoration: none;
     cursor: pointer;
 }
+
+#saveBar{
+    width: 60%;
+}
+
 #saveSave {
     width: 60%;
 }
