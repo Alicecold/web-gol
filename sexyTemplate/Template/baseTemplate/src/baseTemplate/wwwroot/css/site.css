@@ -319,3 +319,12 @@ button:hover{
         width: 100%;
     }
 }
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+   .dead{
+        background: #aaa;
+    }    
+    .alive{
+        background: #00ff90;
+    }
+}

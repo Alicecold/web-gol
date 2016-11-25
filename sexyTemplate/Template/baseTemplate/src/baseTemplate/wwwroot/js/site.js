@@ -141,8 +141,11 @@ var Game = function () {
                         }
                     }
                     createGrid(width, height);
+
+                    //Fill array with cells
                     cells = $.extend(true, [], toCells);
 
+                    //Change images so they render as they should
                     $(".cell").each(function () {
                         var row = $(this).closest("div").attr("data-id");
                         var col = $(this).attr("data-id");
