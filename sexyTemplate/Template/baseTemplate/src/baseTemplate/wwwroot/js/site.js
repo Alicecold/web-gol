@@ -89,6 +89,7 @@ var Game = function () {
             }).done(function (cells, textStatus, jqXHR) {
                 plugin.cells = cells;
                 initBoard();
+                save.css("display", "none");
             });
         });
     });
@@ -104,7 +105,7 @@ var Game = function () {
         }).done(function (boards, textStatus, jqXHR) {
             var appendSaves = "";
             //Populera listan i popup
-            //alert(boards[1].saveName + boards[1].saveDate);
+
             var load = $('#loadPop');
             var span = $('.close');
             load.css("display", "block");
@@ -136,18 +137,17 @@ var Game = function () {
 
                     for (var y = 0; y < height; y++) {
                         for (var x = 0; x < width; x++) {
-                            toCells[x + y * width] = cellData[x][y].isAlive;
+                            toCells[x + y * width] = cellData[x][y];
                         }
                     }
                     createGrid(width, height);
                     cells = $.extend(true, [], toCells);
-                    
+
                     $(".cell").each(function () {
                         var row = $(this).closest("div").attr("data-id");
                         var col = $(this).attr("data-id");
                         changeRenderState(this, cells[+col + +row * width]);
                     });
-
                     load.css("display", "none");
                 });
 
@@ -195,6 +195,8 @@ var changeState = function (thisClass) {
 };
 
 var changeRenderState = function (thisClass, thisCell) {
+    //console.log($(thisClass).hasClass('alive') + " " + thisCell);
+
     if ($(thisClass).hasClass('alive') !== thisCell) // if rendered cell is not alive, but logical cell is, or vice versa
         $(thisClass).toggleClass('dead alive'); // toogle class of rendered cell
     
