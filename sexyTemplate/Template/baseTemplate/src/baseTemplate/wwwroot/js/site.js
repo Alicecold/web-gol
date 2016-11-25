@@ -154,22 +154,21 @@ var Game = function () {
     });
     
     $(".playBtn").click(function () {
-        $(this).toggleClass("gray");
+        ghost(this, false);
         $(".pauseBtn").each(function () {
-            $(this).toggleClass("gray");
+            ghost(this, true);
         })
-        $("#settings").toggleClass("gray");
-
+        ghost($("#settings"), true);
 
         var isPlaying = true;
         global_isPlaying = true;
         var loop = function () {
             $(".pauseBtn").click(function () {
-                $(this).toggleClass("gray");
+                ghost(this, false);
                 $(".playBtn").each(function () {
-                    $(this).toggleClass("gray");
+                    ghost(this, true);
                 })
-                $("#settings").toggleClass("gray");
+                ghost($("#settings"), true);
                 isPlaying = false;
                 global_isPlaying = false;
             });
@@ -180,6 +179,11 @@ var Game = function () {
         loop();
     });
 };
+
+var ghost = function (thisButton, isDiabled) {
+    if (isDiabled != $(thisButton).hasClass("gray"))
+        $(thisButton).toggleClass("gray");
+}
 
 var changeState = function (thisClass) {
     $(thisClass).toggleClass('dead alive'); // toogle class that was sent in
