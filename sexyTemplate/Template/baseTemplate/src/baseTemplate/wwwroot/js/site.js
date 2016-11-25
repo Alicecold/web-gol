@@ -1,4 +1,5 @@
-﻿
+﻿var global_isPlaying = false;
+
 var Game = function () {
     var width = $('#width').val();
     var height = $('#height').val();
@@ -151,12 +152,23 @@ var Game = function () {
         });
        
     });
-
+    
     $(".playBtn").click(function () {
+        $(this).toggleClass("gray");
+        $(".pauseBtn").each(function () {
+            $(this).toggleClass("gray");
+        })
+        $("#settings").toggleClass("gray");
         var isPlaying = true;
+        global_isPlaying = true;
         var loop = function () {
             $(".pauseBtn").click(function () {
+                $(this).toggleClass("gray");
+                $(".playBtn").each(function () {
+                    $(this).toggleClass("gray");
+                })
                 isPlaying = false;
+                global_isPlaying = false;
             });
             cells = playGame(cells, width, height);
             if (isPlaying)
@@ -284,7 +296,8 @@ var randomize = function (cells, width) {
 };
 var toggleSettings = function () {
     $('#settings').click(function () {
-        $('.settingsCol').show();
+        if(!global_isPlaying)
+            $('.settingsCol').show();
     });
 
     $('#close').click(function () {
