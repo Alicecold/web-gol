@@ -3,44 +3,39 @@
     ViewData["Title"] = "A Web Page";
 }
 
-<div>
+
     <div class="container-fluid wrapper" >
-        <div class="row " id="head-text">
-            <div class="col-xs-6 col-md-10">
+        <div class="row ">
+            <div class="col-xs-7 col-md-10">
                 <h1>YAPP-WED Game of Life</h1>
             </div>
-            <div class="col-xs-2 col-md-2 playButton">
-                <img class="button playBtn" src="~/images/playButton.svg" />
-            </div>
-            <div class="col-xs-2 col-md-2 pauseButton">
-                <img class="button pauseBtn" src="~/images/pauseButton.svg" />
-            </div>
-            <div class="col-xs-2 col-md-2 settingsButton">
+            <div class="col-xs-4 col-md-2 playButton awesomeModify">
+                <i class="fa fa-play-circle playBtn gray" aria-hidden="true"></i>
+                <i class="fa fa-pause-circle pauseBtn " aria-hidden="true"></i>
                 <i id="settings" class="fa fa-bars" aria-hidden="true"></i>
             </div>
             
         </div>
         
         <div class="row board">
-            <div class="col-md-10">
+            <div class="col-xs-12 col-md-10">
                 <div id="gridBoard">
 
                 </div>
             </div>
-            <div class="col-md-2 myCol">
+            <div class="col-md-2 settingsCol">
                 <div class="col-md-2 closeButton">
                     <i id="close" class="fa fa-times" aria-hidden="true"></i>
                 </div>
                 <div class="block">
-                    <form id="grid-size" action="action_page.php" method="get">
-                        <label id="label1" for="Width">Width</label>
+                    <form id="grid-size" method="get">
+                        <label for="Width">Width</label>
                         <input type="number" name="Width" value="20" id="width" class="wh-box">
                         <label for="Height">Height</label>
                         <input type="number" name="height" value="20" id="height" class="wh-box">
                     </form>
                 </div>
                 
-                <div>
                     <h4>Speed:</h4>
 
                     <div class="speed">
@@ -51,22 +46,18 @@
                         </form>
                     </div>
                  <button type="button" id="randomizeBtn">Randomize</button>
-                        <div class="playPause">
-                            <img class="button playBtn" onclick="" src="~/images/playButton.svg" />
-                            <img class="button pauseBtn" src="~/images/pauseButton.svg" />
+                        <div class="desktopPlay awesomeModify">
+                            <i class="fa fa-play-circle playBtn gray" aria-hidden="true"></i>
+                            <i class="fa fa-pause-circle pauseBtn " aria-hidden="true"></i>
                         </div>
-                </div>
-                <div>
                     <h4>Database</h4>
                         <button type="button" id="saveBtn">Save current game</button>
-                        <button type="button" id="loadBtn">Load current game</button>
-                </div>
+                        <button type="button" id="loadBtn">Load game</button>
                 
             </div>
 
         </div>
         
-    </div>
     <div id="savePop" class="modal">
         <div class="modal-content">
             <span class="close">x</span>
@@ -88,3 +79,4 @@
         </div>
     </div>
 </div>
+

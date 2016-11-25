@@ -1,4 +1,5 @@
-﻿
+﻿var global_isPlaying = false;
+
 var Game = function () {
     var width = $('#width').val();
     var height = $('#height').val();
@@ -86,8 +87,8 @@ var Game = function () {
                 cache: false
             }).fail(function (jqXHR, textStatus, errorThrown) {
             }).done(function (cells, textStatus, jqXHR) {
-                plugin.cells = cells;
                 initBoard();
+                save.css("display", "none");
             });
         });
     });
@@ -103,7 +104,7 @@ var Game = function () {
         }).done(function (boards, textStatus, jqXHR) {
             var appendSaves = "";
             //Populera listan i popup
-            //alert(boards[1].saveName + boards[1].saveDate);
+
             var load = $('#loadPop');
             var span = $('.close');
             load.css("display", "block");
@@ -111,61 +112,83 @@ var Game = function () {
                 load.css("display", "none");
             });
             $('#showData').empty();
-            for (var i = 0; i < boards.length && i < 5; i++)
-            {
+            for (var i = boards.length-5; i < boards.length; i++) {
                 appendSaves = '<p class="loadFile" data-savename="' + boards[i].saveName + '" onclick="">' + boards[i].saveName + ' ' + boards[i].saveDate + '<br></p>';
                 $('#showData').append(appendSaves);
             }
-           
-            
-            $('.loadFile').click(function ()
-            {
+
+            $('.loadFile').click(function () {
                 var link = $(this);
                 var saveName = link.attr('data-savename');
-                alert(saveName);
                 //Do your ajax stuff here...
                 $.ajax({
                     type: 'get',
                     url: '/api/cells/Load',
-                    data: {saveName:saveName},
+                    data: { saveName: saveName },
                     datatype: 'json',
                     cache: false
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                 }).done(function (cellData, textStatus, jqXHR) {
                     var width = cellData.length;
                     var height = cellData[0].length;
-                    alert(width + " " + height);
                     var toCells = [];
                     toCells.length = width * height;
 
                     for (var y = 0; y < height; y++) {
                         for (var x = 0; x < width; x++) {
-                            toCells[x + y * width] = cellData[x][y].isAlive;
+                            toCells[x + y * width] = cellData[x][y];
                         }
                     }
                     createGrid(width, height);
+
+                    //Fill array with cells
                     cells = $.extend(true, [], toCells);
+
+                    //Change images so they render as they should
+                    $(".cell").each(function () {
+                        var row = $(this).closest("div").attr("data-id");
+                        var col = $(this).attr("data-id");
+                        changeRenderState(this, cells[+col + +row * width]);
+                    });
                     load.css("display", "none");
                 });
 
             });
-            
+
         });
-
+       
     });
-
+    
     $(".playBtn").click(function () {
+        ghost(this, false);
+        $(".pauseBtn").each(function () {
+            ghost(this, true);
+        });
+        ghost($("#settings"), true);
+
         var isPlaying = true;
+        global_isPlaying = true;
         var loop = function () {
             $(".pauseBtn").click(function () {
+                ghost(this, false);
+                $(".playBtn").each(function () {
+                    ghost(this, true);
+                });
+                ghost($("#settings"), true);
                 isPlaying = false;
+                global_isPlaying = false;
             });
             cells = playGame(cells, width, height);
             if (isPlaying)
                 setTimeout(loop, $('input[name="speed"]:checked').val()); // Keep this here and it will work perfectly! <3
-        }
+        };
         loop();
     });
+};
+
+var ghost = function (thisButton, isDiabled) {
+    if (isDiabled !== $(thisButton).hasClass("gray"))
+        $(thisButton).toggleClass("gray");
 };
 
 var changeState = function (thisClass) {
@@ -174,6 +197,7 @@ var changeState = function (thisClass) {
 };
 
 var changeRenderState = function (thisClass, thisCell) {
+
     if ($(thisClass).hasClass('alive') !== thisCell) // if rendered cell is not alive, but logical cell is, or vice versa
         $(thisClass).toggleClass('dead alive'); // toogle class of rendered cell
     
@@ -286,19 +310,20 @@ var randomize = function (cells, width) {
 };
 var toggleSettings = function () {
     $('#settings').click(function () {
-        $('.myCol').show();
+        if(!global_isPlaying)
+            $('.settingsCol').show();
     });
 
     $('#close').click(function () {
-        $('.myCol').hide();
+        $('.settingsCol').hide();
     });
 
     $(window).resize(function () {
         // This will execute whenever the window is resized
-        if ($(window).width() >= 500)// if more than
-            $('.myCol').show();
-        if ($(window).width() < 500)// if less than
-            $('.myCol').hide();
+        if ($(window).width() > 800)// if more than
+            $('.settingsCol').show();
+        if ($(window).width() <= 800)// if less than
+            $('.settingsCol').hide();
     });
 };
 
