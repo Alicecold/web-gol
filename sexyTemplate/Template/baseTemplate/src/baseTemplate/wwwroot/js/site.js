@@ -112,16 +112,14 @@ var Game = function () {
                 load.css("display", "none");
             });
             $('#showData').empty();
-            for (var i = 0; i < boards.length && i < 5; i++) {
+            for (var i = boards.length-5; i < boards.length; i++) {
                 appendSaves = '<p class="loadFile" data-savename="' + boards[i].saveName + '" onclick="">' + boards[i].saveName + ' ' + boards[i].saveDate + '<br></p>';
                 $('#showData').append(appendSaves);
             }
 
-
             $('.loadFile').click(function () {
                 var link = $(this);
                 var saveName = link.attr('data-savename');
-                alert(saveName);
                 //Do your ajax stuff here...
                 $.ajax({
                     type: 'get',
@@ -133,7 +131,6 @@ var Game = function () {
                 }).done(function (cellData, textStatus, jqXHR) {
                     var width = cellData.length;
                     var height = cellData[0].length;
-                    alert(width + " " + height);
                     var toCells = [];
                     toCells.length = width * height;
 
@@ -144,6 +141,13 @@ var Game = function () {
                     }
                     createGrid(width, height);
                     cells = $.extend(true, [], toCells);
+                    
+                    $(".cell").each(function () {
+                        var row = $(this).closest("div").attr("data-id");
+                        var col = $(this).attr("data-id");
+                        changeRenderState(this, cells[+col + +row * width]);
+                    });
+
                     load.css("display", "none");
                 });
 
