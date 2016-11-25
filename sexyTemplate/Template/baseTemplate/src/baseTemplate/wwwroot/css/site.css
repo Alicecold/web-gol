@@ -1,6 +1,6 @@
-﻿/*body{
+﻿body{
     overflow-x: hidden;
-}*/
+}
 
 /*Main*/
 .wrapper{
@@ -147,18 +147,18 @@ button:hover{
     cursor: pointer;
 }
 
-.playPause{
-    margin-left: auto;
-    margin-right: auto;
+.desktopPlay{
+
     text-align: center;
 }
-
+.speedPlay{
+    width: 100%;
+}
 .awesomeModify {
     font-size: 40px;
     text-align: center;
     display: inline;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 25%;
 }
 
 #settings, #close{
@@ -262,7 +262,7 @@ button:hover{
     h4{
         font-size: 15px;
     }
-    .playPause{
+    .desktopPlay{
         display: none;
     }
     .block{
@@ -297,6 +297,7 @@ button:hover{
         margin-top: 3%;
         padding-left: 0px;
         text-align: right;
+        margin-left: initial;
     }
     
     /*Modal*/

@@ -159,6 +159,8 @@ var Game = function () {
             $(this).toggleClass("gray");
         })
         $("#settings").toggleClass("gray");
+
+
         var isPlaying = true;
         global_isPlaying = true;
         var loop = function () {
@@ -166,8 +168,8 @@ var Game = function () {
                 $(this).toggleClass("gray");
                 $(".playBtn").each(function () {
                     $(this).toggleClass("gray");
-                    $("#settings").toggleClass("gray");
                 })
+                $("#settings").toggleClass("gray");
                 isPlaying = false;
                 global_isPlaying = false;
             });
@@ -307,9 +309,9 @@ var toggleSettings = function () {
 
     $(window).resize(function () {
         // This will execute whenever the window is resized
-        if ($(window).width() >= 800)// if more than
+        if ($(window).width() > 800)// if more than
             $('.settingsCol').show();
-        if ($(window).width() < 800)// if less than
+        if ($(window).width() <= 800)// if less than
             $('.settingsCol').hide();
     });
 };
