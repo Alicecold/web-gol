@@ -161,7 +161,7 @@ var Game = function () {
         ghost(this, false);
         $(".pauseBtn").each(function () {
             ghost(this, true);
-        })
+        });
         ghost($("#settings"), true);
 
         var isPlaying = true;
@@ -171,7 +171,7 @@ var Game = function () {
                 ghost(this, false);
                 $(".playBtn").each(function () {
                     ghost(this, true);
-                })
+                });
                 ghost($("#settings"), true);
                 isPlaying = false;
                 global_isPlaying = false;
@@ -185,9 +185,9 @@ var Game = function () {
 };
 
 var ghost = function (thisButton, isDiabled) {
-    if (isDiabled != $(thisButton).hasClass("gray"))
+    if (isDiabled !== $(thisButton).hasClass("gray"))
         $(thisButton).toggleClass("gray");
-}
+};
 
 var changeState = function (thisClass) {
     $(thisClass).toggleClass('dead alive'); // toogle class that was sent in
