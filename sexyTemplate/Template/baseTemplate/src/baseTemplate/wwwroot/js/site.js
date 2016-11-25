@@ -87,7 +87,6 @@ var Game = function () {
                 cache: false
             }).fail(function (jqXHR, textStatus, errorThrown) {
             }).done(function (cells, textStatus, jqXHR) {
-                plugin.cells = cells;
                 initBoard();
                 save.css("display", "none");
             });
@@ -198,7 +197,6 @@ var changeState = function (thisClass) {
 };
 
 var changeRenderState = function (thisClass, thisCell) {
-    //console.log($(thisClass).hasClass('alive') + " " + thisCell);
 
     if ($(thisClass).hasClass('alive') !== thisCell) // if rendered cell is not alive, but logical cell is, or vice versa
         $(thisClass).toggleClass('dead alive'); // toogle class of rendered cell
