@@ -254,9 +254,8 @@ button:hover{
         width: 100%;
     
         max-width: 800px;
-        margin-left: initial;
-        margin-right: initial;
-        /*padding-left: 15px;*/
+        margin: initial;
+        margin-left: 3%;
     }
 
     /*Settings box*/
@@ -297,6 +296,7 @@ button:hover{
     .awesomeModify{
         margin-top: 3%;
         padding-left: 0px;
+        text-align: right;
     }
     
     /*Modal*/

@@ -166,6 +166,7 @@ var Game = function () {
                 $(this).toggleClass("gray");
                 $(".playBtn").each(function () {
                     $(this).toggleClass("gray");
+                    $("#settings").toggleClass("gray");
                 })
                 isPlaying = false;
                 global_isPlaying = false;
