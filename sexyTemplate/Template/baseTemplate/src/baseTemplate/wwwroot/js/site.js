@@ -284,19 +284,19 @@ var randomize = function (cells, width) {
 };
 var toggleSettings = function () {
     $('#settings').click(function () {
-        $('.myCol').show();
+        $('.settingsCol').show();
     });
 
     $('#close').click(function () {
-        $('.myCol').hide();
+        $('.settingsCol').hide();
     });
 
     $(window).resize(function () {
         // This will execute whenever the window is resized
-        if ($(window).width() >= 500)// if more than
-            $('.myCol').show();
-        if ($(window).width() < 500)// if less than
-            $('.myCol').hide();
+        if ($(window).width() >= 800)// if more than
+            $('.settingsCol').show();
+        if ($(window).width() < 800)// if less than
+            $('.settingsCol').hide();
     });
 };
 
