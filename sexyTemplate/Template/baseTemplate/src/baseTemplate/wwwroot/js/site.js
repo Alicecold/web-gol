@@ -33,12 +33,12 @@ var Game = function () {
 
         //Change size of cells  
         $('.cell').each(function(){
-            $(this).css('width', 'calc(100% /' + width + ')');
-            $(this).css('height', 'calc(100% /' + height + ')');
+            $(this).css('width', 'calc(99% /' + width + ')');
+            $(this).css('height', 'calc(99% /' + height + ')');
         });
 
         $('.cellRow').each(function () {
-            $(this).css('height', 'calc(100% /' + height + ')');
+            $(this).css('height', 'calc(99% /' + height + ')');
         });
 
         //add corresponing elements to cell-array

@@ -6,27 +6,25 @@
 }
 
 .cell{
+    width: calc(95% / 20);
+    height: calc(95% / 20);
     display: inline-block;
-    width: calc(100% / 20);
-    height: calc(100% / 20);
     margin-top: 0;
     margin-bottom: 0;
 }
 
 .cellRow{
-    /*border: 1px solid black;*/
     height: auto;
+    width: 100%;
 }
 
 .dead{
     -webkit-filter: grayscale(100%) brightness(500%);
-    -ms-filter: grayscale(100%) brightness(500%);
     filter: grayscale(100%) brightness(500%);
 }
 
 .alive{
     -webkit-filter: hue-rotate(180deg) brightness(200%) saturate(150%);
-    -ms-filter: hue-rotate(180deg) brightness(200%) saturate(150%);
     filter: hue-rotate(180deg) brightness(200%) saturate(150%);
 }
 
@@ -73,14 +71,15 @@ input[type=radio] {
     line-height: 8px;
 }
 
-    .myCol{
-        display: block;
-    }
+.myCol{
+    display: block;
+}
 .block{
     font-family: balsamiq;
     display: block;
     text-align: left;
 }
+
 .wrapper{
     height:100vh;
     width: 100vw;
