@@ -23,7 +23,7 @@ var Game = function () {
         //add elements to append row
         for (rows = 0; rows < height; rows++) {
             for (var col = 0; col < width; col++) {
-                column += '<img class="cell dead" src="/images/cell.svg" data-id = ' + col + '>';
+                column += '<img class="cell dead" src="/images/cell.svg" data-id = ' + col + '></img>';
             }
             appendRow += "<div class='cellRow' data-id='" + rows + "' >" + column + "</div>";
             column = "";
@@ -31,9 +31,9 @@ var Game = function () {
         }
         //add elements to html-doc, within #gridboard
         $("#gridBoard").append(appendRow);
+        //$(appendRow).appendTo('#gridBoard');
 
-        //Change size of cells  
-        $('.cell').each(function(){
+        $('.cell').each(function () {
             $(this).css('width', 'calc(99% /' + width + ')');
             $(this).css('height', 'calc(99% /' + height + ')');
         });
@@ -77,7 +77,7 @@ var Game = function () {
             {
                 type: 'post',
                 url: '/api/cells/save',
-                data: JSON.stringify({ saveName: $('#saveBar').val(), cells, width, height }),
+                data: JSON.stringify({ saveName: $('#saveBar').val(), cells: cells, width: width, height: height }),
                 contentType: 'application/json; charset=utf-8',
                 datatype: 'json',
                 cache: false
