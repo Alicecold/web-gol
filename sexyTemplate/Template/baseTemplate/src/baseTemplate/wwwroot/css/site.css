@@ -25,16 +25,11 @@ h1 {
 
 /*Cells*/
 .cell{
-    width: calc(95% / 20);
-    height: calc(95% / 20);
+    width: auto;
+    height: auto;
     display: inline-block;
     margin-top: 0;
     margin-bottom: 0;
-}
-
-.cellRow{
-    height: auto;
-    width: 100%;
 }
 
 .dead{

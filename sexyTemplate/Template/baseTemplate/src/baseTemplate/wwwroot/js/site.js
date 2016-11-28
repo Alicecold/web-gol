@@ -23,7 +23,7 @@ var Game = function () {
         //add elements to append row
         for (rows = 0; rows < height; rows++) {
             for (var col = 0; col < width; col++) {
-                column += '<img class="dead cell" src="/images/cell.svg" data-id = ' + col + ' onclick="">';
+                column += '<img class="cell dead" src="/images/cell.svg" data-id = ' + col + '>';
             }
             appendRow += "<div class='cellRow' data-id='" + rows + "' >" + column + "</div>";
             column = "";
@@ -35,10 +35,6 @@ var Game = function () {
         //Change size of cells  
         $('.cell').each(function(){
             $(this).css('width', 'calc(99% /' + width + ')');
-            $(this).css('height', 'calc(99% /' + height + ')');
-        });
-
-        $('.cellRow').each(function () {
             $(this).css('height', 'calc(99% /' + height + ')');
         });
 
