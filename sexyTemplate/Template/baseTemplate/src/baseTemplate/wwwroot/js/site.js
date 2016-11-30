@@ -31,8 +31,6 @@ var Game = function () {
         }
         //add elements to html-doc, within #gridboard
         $("#gridBoard").append(appendRow);
-        //$(appendRow).appendTo('#gridBoard');
-
         $('.cell').each(function () {
             $(this).css('width', 'calc(99% /' + width + ')');
             $(this).css('height', 'calc(99% /' + height + ')');
@@ -99,8 +97,6 @@ var Game = function () {
         }).fail(function (jqXHR, textStatus, errorThrown) {
         }).done(function (boards, textStatus, jqXHR) {
             var appendSaves = "";
-            //Populera listan i popup
-
             var load = $('#loadPop');
             var span = $('.close');
             load.css("display", "block");
@@ -116,7 +112,6 @@ var Game = function () {
             $('.loadFile').click(function () {
                 var link = $(this);
                 var saveName = link.attr('data-savename');
-                //Do your ajax stuff here...
                 $.ajax({
                     type: 'get',
                     url: '/api/cells/Load',
@@ -148,11 +143,8 @@ var Game = function () {
                     });
                     load.css("display", "none");
                 });
-
             });
-
-        });
-       
+        }); 
     });
     
     $(".playBtn").click(function () {
@@ -176,7 +168,7 @@ var Game = function () {
             });
             cells = playGame(cells, width, height);
             if (isPlaying)
-                setTimeout(loop, $('input[name="speed"]:checked').val()); // Keep this here and it will work perfectly! <3
+                setTimeout(loop, $('input[name="speed"]:checked').val());
         };
         loop();
     });
@@ -273,13 +265,11 @@ var playGame = function (cells, width, height) {
 
             if (cells[+col + +row * +width] && numberOfNeighbours !== 3 && numberOfNeighbours !== 2) {
                 toChange[+col + +row * +width] = false;
-
             }
 
             if (!cells[+col + +row * +width] && numberOfNeighbours === 3) {
                         toChange[+col + +row * +width] = true;
                     }
-
                 }
             }
 
