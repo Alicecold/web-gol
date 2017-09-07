@@ -5,7 +5,7 @@ var Game = function () {
     var height = $('#height').val();
     var column = "", appendRow = "", inc = 1;
     var cells = [];
-    
+
 
     $('#grid-size').focusout(function () {
         width = $('#width').val();
@@ -65,7 +65,7 @@ var Game = function () {
         var save = $('#savePop');
         var span = $('.close');
         save.css("display", "block");
-        span.click( function () {
+        span.click(function () {
             save.css("display", "none");
         });
 
@@ -90,72 +90,106 @@ var Game = function () {
     });
     //load popup
     $('#loadBtn').click(function () {
+        var appendSaves = "";
+        var load = $('#loadPop');
+        var span = $('.close');
+        load.css("display", "block");
+        span.click(function () {
+            load.css("display", "none");
+        });
         $('#showData').empty();
         var numBoards = getNumberOfBoards();
         for (var i = 0; i < numBoards; i++) {
-            appendSaves = '<p class="loadFile" data-savename="' + boards[i].saveName + '" onclick="">' + boards[i].saveName + ' ' + '<br></p>';
+            var board = getBoardByIndex(i);
+            appendSaves = '<p class="loadFile" data-savename="' + board.name + '" onclick="">' + board.name + ' ' + '<br></p>';
             $('#showData').append(appendSaves);
         }
+        $('.loadFile').click(function () {
+            var link = $(this);
+            cellData = getBoardByName(link.attr('data-savename')).cells;
+            var width = cellData.length;
+            var height = cellData[0].length;
+            var toCells = [];
+            toCells.length = width * height;
 
-        $.ajax(
-        {
-            type: 'get',
-            url: '/api/cells/getboards',
-            datatype: 'json',
-            cache: false
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-        }).done(function (boards, textStatus, jqXHR) {
-            var appendSaves = "";
-            var load = $('#loadPop');
-            var span = $('.close');
-            load.css("display", "block");
-            span.click(function () {
-                load.css("display", "none");
-            });
-            $('#showData').empty();
-            for (var i = boards.length-5; i < boards.length; i++) {
-                appendSaves = '<p class="loadFile" data-savename="' + boards[i].saveName + '" onclick="">' + boards[i].saveName + ' ' + boards[i].saveDate + '<br></p>';
-                $('#showData').append(appendSaves);
+            for (var y = 0; y < height; y++) {
+                for (var x = 0; x < width; x++) {
+                    toCells[x + y * width] = cellData[x][y];
+                }
             }
+            createGrid(width, height);
 
-            $('.loadFile').click(function () {
-                var link = $(this);
-                var saveName = link.attr('data-savename');
-                $.ajax({
-                    type: 'get',
-                    url: '/api/cells/Load',
-                    data: { saveName: saveName },
-                    datatype: 'json',
-                    cache: false
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                }).done(function (cellData, textStatus, jqXHR) {
-                    var width = cellData.length;
-                    var height = cellData[0].length;
-                    var toCells = [];
-                    toCells.length = width * height;
+            //Fill array with cells
+            cells = $.extend(true, [], toCells);
 
-                    for (var y = 0; y < height; y++) {
-                        for (var x = 0; x < width; x++) {
-                            toCells[x + y * width] = cellData[x][y];
-                        }
-                    }
-                    createGrid(width, height);
-
-                    //Fill array with cells
-                    cells = $.extend(true, [], toCells);
-
-                    //Change images so they render as they should
-                    $(".cell").each(function () {
-                        var row = $(this).closest("div").attr("data-id");
-                        var col = $(this).attr("data-id");
-                        changeRenderState(this, cells[+col + +row * width]);
-                    });
-                    load.css("display", "none");
-                });
+            //Change images so they render as they should
+            $(".cell").each(function () {
+                var row = $(this).closest("div").attr("data-id");
+                var col = $(this).attr("data-id");
+                changeRenderState(this, cells[+col + +row * width]);
             });
-        }); 
+            load.css("display", "none");
+        });
+
+        // $.ajax(
+        // {
+        //     type: 'get',
+        //     url: '/api/cells/getboards',
+        //     datatype: 'json',
+        //     cache: false
+        // }).fail(function (jqXHR, textStatus, errorThrown) {
+        // }).done(function (boards, textStatus, jqXHR) {
+        //     var appendSaves = "";
+        //     var load = $('#loadPop');
+        //     var span = $('.close');
+        //     load.css("display", "block");
+        //     span.click(function () {
+        //         load.css("display", "none");
+        //     });
+        //     $('#showData').empty();
+        //     for (var i = boards.length-5; i < boards.length; i++) {
+        //         appendSaves = '<p class="loadFile" data-savename="' + boards[i].saveName + '" onclick="">' + boards[i].saveName + ' ' + boards[i].saveDate + '<br></p>';
+        //         $('#showData').append(appendSaves);
+        //     }
+
+        //     $('.loadFile').click(function () {
+        //         var link = $(this);
+        //         var saveName = link.attr('data-savename');
+        //         $.ajax({
+        //             type: 'get',
+        //             url: '/api/cells/Load',
+        //             data: { saveName: saveName },
+        //             datatype: 'json',
+        //             cache: false
+        //         }).fail(function (jqXHR, textStatus, errorThrown) {
+        //         }).done(function (cellData, textStatus, jqXHR) {
+        //             var width = cellData.length;
+        //             var height = cellData[0].length;
+        //             var toCells = [];
+        //             toCells.length = width * height;
+
+        //             for (var y = 0; y < height; y++) {
+        //                 for (var x = 0; x < width; x++) {
+        //                     toCells[x + y * width] = cellData[x][y];
+        //                 }
+        //             }
+        //             createGrid(width, height);
+
+        //             //Fill array with cells
+        //             cells = $.extend(true, [], toCells);
+
+        //             //Change images so they render as they should
+        //             $(".cell").each(function () {
+        //                 var row = $(this).closest("div").attr("data-id");
+        //                 var col = $(this).attr("data-id");
+        //                 changeRenderState(this, cells[+col + +row * width]);
+        //             });
+        //             load.css("display", "none");
+        //         });
+        //     });
+        // }); 
     });
-    
+
     $(".playBtn").click(function () {
         ghost(this, false);
         $(".pauseBtn").each(function () {
@@ -197,7 +231,7 @@ var changeRenderState = function (thisClass, thisCell) {
 
     if ($(thisClass).hasClass('alive') !== thisCell) // if rendered cell is not alive, but logical cell is, or vice versa
         $(thisClass).toggleClass('dead alive'); // toogle class of rendered cell
-    
+
 };
 
 var playGame = function (cells, width, height) {
@@ -277,20 +311,20 @@ var playGame = function (cells, width, height) {
             }
 
             if (!cells[+col + +row * +width] && numberOfNeighbours === 3) {
-                        toChange[+col + +row * +width] = true;
-                    }
-                }
+                toChange[+col + +row * +width] = true;
             }
+        }
+    }
 
-     //apply changes
-     cells = $.extend(true, [], toChange);
-    
-     $(".cell").each(function () {
-         var row = $(this).closest("div").attr("data-id");
-         var col = $(this).attr("data-id");
-         changeRenderState(this, cells[+col + +row * width]);
-     });
-     return cells;
+    //apply changes
+    cells = $.extend(true, [], toChange);
+
+    $(".cell").each(function () {
+        var row = $(this).closest("div").attr("data-id");
+        var col = $(this).attr("data-id");
+        changeRenderState(this, cells[+col + +row * width]);
+    });
+    return cells;
 };
 
 var randomize = function (cells, width) {
@@ -305,7 +339,7 @@ var randomize = function (cells, width) {
 };
 var toggleSettings = function () {
     $('#settings').click(function () {
-        if(!global_isPlaying)
+        if (!global_isPlaying)
             $('.settingsCol').show();
     });
 

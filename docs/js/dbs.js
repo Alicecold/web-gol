@@ -1,22 +1,22 @@
 
 function saveCells(name, cells, width, height) {
-    if(localStorage.getItem("listOfBoards") === null){
-        localStorage.setItem("listOfBoards", []);
-    }
     if (typeof (Storage) !== "undefined") {
-        localStorage.setItem(name, JSON.stringify({cells: cells, width: width, height: height }));
-        var boardarr = localStorage.getItem("listOfBoards");
-        boardarr.push(name);
-        localStorage.setItem("listOfBoards", boardarr);
+        localStorage.setItem(name, JSON.stringify({name: name, cells: cells, width: width, height: height }));
     } else {
         // Sorry! No Web Storage support..
     }
 }
 
 function getNumberOfBoards(){
-    return localStorage.length();
+    return localStorage.length;
 }
 
 function getBoardByIndex(index){
-    return localStorage[index];
+    return JSON.parse($.map(localStorage, function(value, i){
+        return [value];
+    })[index]);
+}
+
+function getBoardByName(name){
+    return JSON.parse(localStorage.getItem(name));
 }
