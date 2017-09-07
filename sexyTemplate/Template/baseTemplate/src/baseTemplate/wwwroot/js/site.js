@@ -23,7 +23,7 @@ var Game = function () {
         //add elements to append row
         for (rows = 0; rows < height; rows++) {
             for (var col = 0; col < width; col++) {
-                column += '<img class="cell dead" src="./images/cell.svg" data-id = ' + col + '></img>';
+                column += '<img class="cell dead" src="/images/cell.svg" data-id = ' + col + '></img>';
             }
             appendRow += "<div class='cellRow' data-id='" + rows + "' >" + column + "</div>";
             column = "";
