@@ -71,19 +71,21 @@ var Game = function () {
 
         //Saving files
         $('#saveSave').click(function () {
-            $.ajax(
-            {
-                type: 'post',
-                url: '/api/cells/save',
-                data: JSON.stringify({ saveName: $('#saveBar').val(), cells: cells, width: width, height: height }),
-                contentType: 'application/json; charset=utf-8',
-                datatype: 'json',
-                cache: false
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-            }).done(function (cells, textStatus, jqXHR) {
-                initBoard();
-                save.css("display", "none");
-            });
+
+            saveCells($('#saveBar').val(), cells, width, height);
+            // $.ajax(
+            // {
+            //     type: 'post',
+            //     url: '/api/cells/save',
+            //     data: JSON.stringify({ saveName: $('#saveBar').val(), cells: cells, width: width, height: height }),
+            //     contentType: 'application/json; charset=utf-8',
+            //     datatype: 'json',
+            //     cache: false
+            // }).fail(function (jqXHR, textStatus, errorThrown) {
+            // }).done(function (cells, textStatus, jqXHR) {
+            //     initBoard();
+            //     save.css("display", "none");
+            // });
         });
     });
     //load popup
