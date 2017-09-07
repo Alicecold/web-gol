@@ -1,0 +1,314 @@
+﻿body{
+    overflow-x: hidden;
+}
+
+/*Main*/
+.wrapper{
+    height:100%;
+    width: 100%;
+    padding: 0;
+    max-width: 1170px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+h1 {
+    font-family: balsamiq;
+    text-align:center;
+}
+
+.gray{
+    color: #888;
+}
+
+/*Cells*/
+.cell{
+    width: auto;
+    height: auto;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.dead{
+    -webkit-filter: grayscale(100%) brightness(500%);
+    filter: grayscale(100%) brightness(500%);
+}
+
+.alive{
+    -webkit-filter: hue-rotate(180deg) brightness(200%) saturate(150%);
+    filter: hue-rotate(180deg) brightness(200%) saturate(150%);
+}
+
+
+/*Radiobuttons*/
+input[type=radio] {
+  display: none;
+}
+.speed{
+    width: 100%;
+}
+.speed label {
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+  position: relative;
+  padding-left: 25px;
+  margin-right: 15px;
+  font-weight:normal;
+}
+
+.speed label:before {
+  content: "";
+  display: inline-block;
+  vertical-align: top;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.speed input[type=radio]:checked + label:before {
+    content: "\2022";
+    color: black;
+    font-size: 30px;
+    text-align:right;
+    line-height: 8px;
+}
+
+/*left-hand column*/
+.settingsCol{
+    display: block;
+}
+.block{
+    font-family: balsamiq;
+    display: block;
+    text-align: left;
+}
+.wh-box{
+    width: 100%;
+    border-bottom: 3px solid black;
+}
+
+label{
+    font-family: balsamiq;
+    display:block;
+    margin-bottom: 0;
+    margin-top: 2px;
+}
+p {
+    font-family: balsamiq;
+}
+
+h4{
+    font-family: balsamiq;
+    max-width: 100%;
+    padding-top: 10px;
+    margin-top: 25px;
+    margin-right: 0;
+    border-top: 3px solid black;
+    font-weight: bold;
+}
+
+button{
+    font-family: balsamiq;
+    width: 100%;
+    margin-top: 15px;
+    box-shadow: 3px 3px 0 #000000;
+    background-color: white;
+    border: 2px solid black;
+}
+
+button:hover{
+    box-shadow: 3px 3px 0 #360985;
+}
+
+#playBtn:hover, #pauseBtn:hover{
+    cursor: pointer;
+}
+
+.desktopPlay{
+    text-align: center;
+}
+.speedPlay{
+    width: 100%;
+}
+.awesomeModify {
+    font-size: 40px;
+    text-align: center;
+    display: inline;
+    margin-left: 25%;
+}
+
+#settings, #close{
+    display:none;
+}
+.playButton, .pauseButton{
+    display: none;
+}
+
+/*Modal pop-ups*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 5;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#saveBar{
+    width: 60%;
+}
+
+#saveSave {
+    width: 60%;
+}
+
+/*board*/
+.board{
+    width: 100%;
+    height: 100%;
+    padding: 10px 30px;
+}
+
+#gridBoard{
+    width: auto;
+    height: auto;
+    margin-top: 5px;
+    background-color: white;
+    border: 2px solid black;
+}
+
+
+/*Fonts*/
+@font-face{
+    font-family: balsamiq;
+    src: url(../fonts/BalsamiqSansRegular.ttf);
+}
+@font-face{
+    font-family: balsamiq;
+    font-weight: bold;
+    src: url(../fonts/BalsamiqSansBold.ttf );
+}
+
+@font-face{
+    font-family: balsamiq;
+    font-style:italic;
+    src: url(../fonts/BalsamiqSansItalic.ttf);
+}
+
+/*Media*/
+@media (max-width: 800px){
+    /*Main*/
+    h1{
+        font-size: 12px;
+        text-align: left;
+        padding-right: 0;
+    }
+
+    .wrapper{
+        height:100%;
+        width: 100%;
+    
+        max-width: 800px;
+        margin: initial;
+        margin-left: 3%;
+    }
+
+    /*Settings box*/
+    h4{
+        font-size: 15px;
+    }
+    .desktopPlay{
+        display: none;
+    }
+    .block{
+        padding-top: 25px;
+    }
+    .settingsCol{
+        display: none;
+        border: 2px solid black;
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: white;
+        padding-bottom: 10px;
+        width: 75vw;
+    }
+
+    button{
+        font-size: 10px;
+    }
+    .closeButton{
+        float: right;
+        padding-right: 0;
+        padding-top: 10px;
+    }
+    #settings, #close, .playButton, .pauseButton{
+        display:inline-block;
+        font-size: 25px;
+    }
+
+    .awesomeModify{
+        margin-top: 3%;
+        padding-left: 0;
+        text-align: right;
+        margin-left: initial;
+    }
+    
+    /*Modal*/
+    .modal-content {
+        width: 350px;
+    }
+
+    /*Board*/
+    .board{
+        padding: inherit;
+    }
+
+    #gridBoard{
+        width: 100%;
+    }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+   .dead{
+        background: #aaa;
+    }    
+    .alive{
+        background: #00ff90;
+    }
+}
