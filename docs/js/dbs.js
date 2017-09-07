@@ -1,6 +1,6 @@
 
 function saveCells(name, cells, width, height) {
-    if(localStorage.getItem("listOfBoards")){
+    if(localStorage.getItem("listOfBoards") === null){
         localStorage.setItem("listOfBoards", []);
     }
     if (typeof (Storage) !== "undefined") {
