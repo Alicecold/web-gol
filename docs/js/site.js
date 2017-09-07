@@ -90,6 +90,13 @@ var Game = function () {
     });
     //load popup
     $('#loadBtn').click(function () {
+        $('#showData').empty();
+        var numBoards = getNumberOfBoards();
+        for (var i = 0; i < numBoards; i++) {
+            appendSaves = '<p class="loadFile" data-savename="' + boards[i].saveName + '" onclick="">' + boards[i].saveName + ' ' + '<br></p>';
+            $('#showData').append(appendSaves);
+        }
+
         $.ajax(
         {
             type: 'get',
