@@ -18,7 +18,6 @@ var Game = function () {
         //Empty board
         $('#gridBoard').empty();
         //Create array
-        console.log(height);
         cells.length = height * width;
 
         //add elements to append row
