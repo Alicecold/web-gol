@@ -1,10 +1,11 @@
 
 function saveCells(name, cells, width, height) {
-    if (typeof (Storage) !== "undefined") {
-        localStorage.setItem(name, JSON.stringify({name: name, cells: cells, width: width, height: height }));
-    } else {
-        // Sorry! No Web Storage support..
-    }
+    var date = getDate();
+    localStorage.setItem(name, JSON.stringify({name: name,date: date, cells: cells, width: width, height: height }));
+}
+
+function getDate(){
+    return new Date().toISOString().substring(0, 10);
 }
 
 function getNumberOfBoards(){

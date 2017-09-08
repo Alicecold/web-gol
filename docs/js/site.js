@@ -18,6 +18,7 @@ var Game = function () {
         //Empty board
         $('#gridBoard').empty();
         //Create array
+        console.log(height);
         cells.length = height * width;
 
         //add elements to append row
@@ -62,132 +63,66 @@ var Game = function () {
 
     //Save popup
     $('#saveBtn').click(function () {
-        var save = $('#savePop');
-        var span = $('.close');
-        save.css("display", "block");
-        span.click(function () {
-            save.css("display", "none");
-        });
-
-        //Saving files
-        $('#saveSave').click(function () {
-
-            saveCells($('#saveBar').val(), cells, width, height);
-            // $.ajax(
-            // {
-            //     type: 'post',
-            //     url: '/api/cells/save',
-            //     data: JSON.stringify({ saveName: $('#saveBar').val(), cells: cells, width: width, height: height }),
-            //     contentType: 'application/json; charset=utf-8',
-            //     datatype: 'json',
-            //     cache: false
-            // }).fail(function (jqXHR, textStatus, errorThrown) {
-            // }).done(function (cells, textStatus, jqXHR) {
-            //     initBoard();
-            //     save.css("display", "none");
-            // });
-        });
+        if (typeof (Storage) !== "undefined") {
+            var save = $('#savePop');
+            var span = $('.close');
+            save.css("display", "block");
+            span.click(function () {
+                save.css("display", "none");
+            });
+    
+            //Saving files
+            $('#saveSave').click(function () {
+    
+                saveCells($('#saveBar').val(), cells, width, height);
+                save.css("display", "none");
+            });
+        } else {
+            window.alert("Sorry! You don't have support for local storage! Try a different browser or visit us on github!");
+        }
+        
     });
     //load popup
     $('#loadBtn').click(function () {
-        var appendSaves = "";
-        var load = $('#loadPop');
-        var span = $('.close');
-        load.css("display", "block");
-        span.click(function () {
-            load.css("display", "none");
-        });
-        $('#showData').empty();
-        var numBoards = getNumberOfBoards();
-        for (var i = 0; i < numBoards; i++) {
-            var board = getBoardByIndex(i);
-            appendSaves = '<p class="loadFile" data-savename="' + board.name + '" onclick="">' + board.name + ' ' + '<br></p>';
-            $('#showData').append(appendSaves);
-        }
-        $('.loadFile').click(function () {
-            var link = $(this);
-            cellData = getBoardByName(link.attr('data-savename')).cells;
-            var width = cellData.length;
-            var height = cellData[0].length;
-            var toCells = [];
-            toCells.length = width * height;
-
-            for (var y = 0; y < height; y++) {
-                for (var x = 0; x < width; x++) {
-                    toCells[x + y * width] = cellData[x][y];
-                }
-            }
-            createGrid(width, height);
-
-            //Fill array with cells
-            cells = $.extend(true, [], toCells);
-
-            //Change images so they render as they should
-            $(".cell").each(function () {
-                var row = $(this).closest("div").attr("data-id");
-                var col = $(this).attr("data-id");
-                changeRenderState(this, cells[+col + +row * width]);
+        if (typeof (Storage) !== "undefined") {
+            var appendSaves = "";
+            var load = $('#loadPop');
+            var span = $('.close');
+            load.css("display", "block");
+            span.click(function () {
+                load.css("display", "none");
             });
-            load.css("display", "none");
-        });
-
-        // $.ajax(
-        // {
-        //     type: 'get',
-        //     url: '/api/cells/getboards',
-        //     datatype: 'json',
-        //     cache: false
-        // }).fail(function (jqXHR, textStatus, errorThrown) {
-        // }).done(function (boards, textStatus, jqXHR) {
-        //     var appendSaves = "";
-        //     var load = $('#loadPop');
-        //     var span = $('.close');
-        //     load.css("display", "block");
-        //     span.click(function () {
-        //         load.css("display", "none");
-        //     });
-        //     $('#showData').empty();
-        //     for (var i = boards.length-5; i < boards.length; i++) {
-        //         appendSaves = '<p class="loadFile" data-savename="' + boards[i].saveName + '" onclick="">' + boards[i].saveName + ' ' + boards[i].saveDate + '<br></p>';
-        //         $('#showData').append(appendSaves);
-        //     }
-
-        //     $('.loadFile').click(function () {
-        //         var link = $(this);
-        //         var saveName = link.attr('data-savename');
-        //         $.ajax({
-        //             type: 'get',
-        //             url: '/api/cells/Load',
-        //             data: { saveName: saveName },
-        //             datatype: 'json',
-        //             cache: false
-        //         }).fail(function (jqXHR, textStatus, errorThrown) {
-        //         }).done(function (cellData, textStatus, jqXHR) {
-        //             var width = cellData.length;
-        //             var height = cellData[0].length;
-        //             var toCells = [];
-        //             toCells.length = width * height;
-
-        //             for (var y = 0; y < height; y++) {
-        //                 for (var x = 0; x < width; x++) {
-        //                     toCells[x + y * width] = cellData[x][y];
-        //                 }
-        //             }
-        //             createGrid(width, height);
-
-        //             //Fill array with cells
-        //             cells = $.extend(true, [], toCells);
-
-        //             //Change images so they render as they should
-        //             $(".cell").each(function () {
-        //                 var row = $(this).closest("div").attr("data-id");
-        //                 var col = $(this).attr("data-id");
-        //                 changeRenderState(this, cells[+col + +row * width]);
-        //             });
-        //             load.css("display", "none");
-        //         });
-        //     });
-        // }); 
+            $('#showData').empty();
+            var numBoards = getNumberOfBoards();
+            for (var i = 0; i < numBoards; i++) {
+                var board = getBoardByIndex(i);
+                appendSaves = '<p class="loadFile" data-savename="' + board.name + '" onclick="">' + board.name + ' ' + board.date + '<br></p>';
+                $('#showData').append(appendSaves);
+            }
+            $('.loadFile').click(function () {
+                var link = $(this);
+                var cellData = getBoardByName(link.attr('data-savename'));
+                var width = cellData.width;
+                var height = cellData.height;
+                var toCells = cellData.cells;
+    
+                createGrid(height, width);
+    
+                //Fill array with cells
+                cells = $.extend(true, [], toCells);
+    
+                //Change images so they render as they should
+                $(".cell").each(function () {
+                    var row = $(this).closest("div").attr("data-id");
+                    var col = $(this).attr("data-id");
+                    changeRenderState(this, cells[+col + +row * width]);
+                });
+                load.css("display", "none");
+            });
+        } else {
+            window.alert("Sorry! You don't have support for local storage! Try a different browser or visit us on github!");
+        }
+        
     });
 
     $(".playBtn").click(function () {
