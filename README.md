@@ -2,7 +2,7 @@
 A web version of the earlier Game of life project at newton.
 
 ## Game of life
-John Conway's Game of life (or GoL) is a simple simulation of a collection of bits on a "infinite" plane which uses some rules for when each bit will "die", "live" or "be born". You can read more about it on wikipedia (https://sv.wikipedia.org/wiki/Game_of_Life).
+John Conway's Game of life (or GoL) is a simple simulation of a collection of bits on a "infinite" plane which uses some rules for when each bit will "die", "live" or "be born". You can read more about it on wikipedia (https://en.wikipedia.org/wiki/Game_of_Life).
 
 ## dotnet version
 The dotnet/c#-version is located in the sexytemplate folder (Why is it called that? Good question. Maybe we can tell you that over an cup of tea?), and is what was originally created for the YAPP-WEB course on newton
